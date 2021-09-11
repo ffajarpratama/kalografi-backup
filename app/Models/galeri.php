@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class galeri extends Model
 {
     use HasFactory;
-    use HasFactory;
+  
     protected $table = 'galeris';
     protected $guarded = [];
 
-    public function paket(){
-            return $this->belongsTo(Paket::class);
+    public function paket()
+    {
+        return $this->hasMany(Paket::class, 'idgaleri');
     }
 }
-

@@ -14,7 +14,7 @@
     @include('pages.pricelist.partials.wedding')
     @include('pages.pricelist.partials.pre-wedding')
     @include('pages.pricelist.partials.engagement')
-    @include('pages.pricelist.partials.prologue')
+
     {{-- END PRODUCTS SECTION --}}
 
     {{-- FOOTER --}}

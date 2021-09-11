@@ -6,14 +6,15 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav mx-auto" style="--bs-scroll-height: 100px;">
                 <li class="nav-item fs-7 mx-3 mx-3">
-                    <a class="nav-link {{ Route::is('landing') ? 'fw-bold' : '' }}" href="{{ route('landing') }}">Home</a>
+                    <a class="nav-link {{ Route::is('landing') ? 'fw-bold' : '' }}"
+                        href="{{ route('landing') }}">Home</a>
                 </li>
                 <li class="nav-item fs-7 mx-3">
                     <a class="nav-link" href="#">About Us</a>
                 </li>
                 <li class="nav-item dropdown fs-7 mx-3">
-                    <a class="nav-link dropdown-toggle {{ Route::is('portfolio') ? 'fw-bold' : '' }}" href="#" id="navbarScrollingDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle {{ Route::is('portfolio') ? 'fw-bold' : '' }}" href="#"
+                        id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Portfolio
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -24,8 +25,8 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown fs-7 mx-3">
-                    <a class="nav-link dropdown-toggle {{ Route::is('pricelist.*') ? 'fw-bold' : '' }}" href="#" id="navbarScrollingDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle {{ Route::is('pricelist.*') ? 'fw-bold' : '' }}" href="#"
+                        id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pricelist
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -44,7 +45,10 @@
                                 Pre-Wedding Session
                             </a>
                         </li>
-                        <li><a class="dropdown-item fs-7" href="#">Engagement Documentation</a></li>
+                        <li><a class="dropdown-item fs-7" href="{{ route('pricelist.engagement.index') }}">
+                                Engagement Documentation
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

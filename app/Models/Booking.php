@@ -12,9 +12,9 @@ class Booking extends Model
     protected $guarded = [];
 
 
-    public function paket()
+    public function pakets()
     {
-        return $this->belongsTo(Paket::class);
+        return $this->belongsTo(Paket::class, 'paket_id');
     }
     public function discount()
     {
@@ -27,5 +27,9 @@ class Booking extends Model
     public function photobooks()
     {
         return $this->belongsTo(photobook::class, 'photobook');
+    }
+    public function status()
+    {
+        return $this->hasMany(status::class, 'booking_id');
     }
 }

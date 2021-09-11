@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\status;
 
 class trackingcontroller extends Controller
 {
@@ -12,11 +13,10 @@ class trackingcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $booking = Booking::all();
-        $edit = Booking::find($id);
-        return view('pages.track.trackbook');
+
+        return view('pages.track.search');
     }
 
     /**
@@ -26,7 +26,9 @@ class trackingcontroller extends Controller
      */
     public function search(Request $request)
     {
-        $id = $request->order_id;
+        $data = Booking::all();
+        $status = status::query()->where('booking_id', $data->id)->first();
+        return view('pages.post', compact('data', 'status'));
     }
 
     /**
@@ -47,10 +49,9 @@ class trackingcontroller extends Controller
      */
     public function post(Request $request)
     {
-
-        $data = $request->order_id;
-        $order = Booking::where('id', $data)->first();
-        return view('pages.search', compact('data', 'order'));
+        $order = Booking::query()->findOrFail($request->order_id);
+        $status = status::query()->where('booking_id', $order->id)->first();
+        return view('pages.track.trackbook', compact('order', 'status'));
     }
 
     /**

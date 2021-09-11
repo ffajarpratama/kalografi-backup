@@ -14,35 +14,22 @@ class WeddingController extends Controller
 {
     public function index(Request $request)
     {
-        $request->session()->forget('booking');
-        $products = Booking::all();
-        return view('pages.pricelist.wedding.index');
+
+        $booking = $request->session()->get('booking');
+        $package = Paket::all();
+
+        return view('pages.pricelist.wedding.index', compact('package', 'booking'));
     }
 
-    public function show(Request $request)
+    public function prewedding()
     {
-        $product = $request->session()->get('booking');
-        $printedphoto = printedphoto::all();
-        $photobook = photobook::all();
-
-
-
-        return view('pages.pricelist.wedding.show', compact('product', 'printedphoto', 'photobook'));
-    }
-
-    public function createStep1(Request $request)
-    {
-        $product = $request->session()->get('booking');
-        return view('pages.pricelist.wedding.show', compact('product', $product));
     }
 
     public function postCreateStep1(Request $request)
     {
-
-
-
         $validatedData = $request->validate([
             'paket_id' => 'required',
+            'bookdate' => 'required',
             'printedphoto' => 'required',
             'ppqty' => 'required',
             'photobook' => 'required',
@@ -59,6 +46,7 @@ class WeddingController extends Controller
             $booking = new Booking();
             $booking->fill([
                 'paket_id' => $validatedData['paket_id'],
+                'bookdate' => $validatedData['bookdate'],
                 'printedphoto' => $validatedData['printedphoto'],
                 'ppqty' => $validatedData['ppqty'],
                 'photobook' => $validatedData['photobook'],
@@ -70,6 +58,7 @@ class WeddingController extends Controller
             $booking = $request->session()->get('booking');
             $booking->fill([
                 'paket_id' => $validatedData['paket_id'],
+                'bookdate' => $validatedData['bookdate'],
                 'printedphoto' => $validatedData['printedphoto'],
                 'ppqty' => $validatedData['ppqty'],
                 'photobook' => $validatedData['photobook'],
@@ -78,6 +67,6 @@ class WeddingController extends Controller
             ]);
             $request->session()->put('booking', $booking);
         }
-        return redirect('/pricelist/wedding/mahawira/order');
+        return redirect('/pricelist/wedding/order/details');
     }
 }
