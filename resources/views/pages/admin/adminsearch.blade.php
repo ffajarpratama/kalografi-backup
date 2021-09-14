@@ -79,7 +79,12 @@
                         <div class="card-body">
                             <div class="row text-center">
                                 <h3 class="fs-2 fw-bold text-kalografi mb-3">
-                                    {{ $order->paket->namapaket }}
+                                    @if (is_null($order->paket_id) )
+                                        Custom Package
+                                    @else
+                                        {{ $order->pakets->namapaket }}
+                                    @endif
+
                                 </h3>
                             </div>
 
@@ -167,7 +172,11 @@
                                 </div>
                                 <div class="col-md-6 px-0">
                                     <p class="text-secondary mb-0">
-                                        {{ $order->paket->namapaket }}
+                                        @if (is_null($package->paket_id))
+                                        Custom Package
+                                        @else
+                                        {{ $order->pakets->namapaket }}
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="col-md-4">

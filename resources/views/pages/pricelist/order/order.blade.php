@@ -55,7 +55,7 @@
                                     IDR {{ number_format($package->price) }}
                                 </h3>
                             </div>
-                            <form action="/pricelist/wedding/postorder" method="post">
+                            <form action="/pricelist/postorder" method="post">
                                 {{ csrf_field() }}
                                 <input type="text" name="paket_id" value="{{ $package->id }}" hidden>
                                 <div class="form-group row mb-3">

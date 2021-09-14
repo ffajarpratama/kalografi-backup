@@ -42,6 +42,12 @@
         vertical-align: middle;
     }
 
+
+    .btn-kalografi-primary {
+        line-height: 35px;
+        width: 442.19px;
+    }
+
     .btn-tags {
         font-size: 10px;
         color: #8F9C69;
@@ -257,7 +263,7 @@
         padding-left: 35px;
         margin-bottom: 8px;
         cursor: pointer;
-        font-size: 15px;
+        font-size: 12px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;

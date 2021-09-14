@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\additionals;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Paket;
@@ -13,10 +14,13 @@ use App\Models\status;
 use App\Models\custom;
 use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Empty_;
 
 class OrderController extends Controller
 {
+
+
     public function order(Request $request)
     {
         if (session()->has('booking')) {
@@ -33,8 +37,6 @@ class OrderController extends Controller
     public function checkout(Request $request)
     {
 
-
-
         if (session()->has('booking')) {
             $discount = discount::all();
             $booking = $request->session()->get('booking');
@@ -50,6 +52,51 @@ class OrderController extends Controller
     public function payment()
     {
         return view('pages.pricelist.order.payment');
+    }
+
+    public function postCreateStep1(Request $request)
+    {
+        $validatedData = $request->validate([
+            'paket_id' => 'required',
+            'bookdate' => 'required',
+            'printedphoto' => 'required',
+            'ppqty' => 'required',
+            'photobook' => 'required',
+            'pbqty' => 'required',
+        ]);
+        $packageprice = Paket::query()->where('id', $request->paket_id)->value('price');
+        $printedphotoprice  = printedphoto::query()->where('id', $request->printedphoto)->value('price') * $request->ppqty;
+        $photobookprice  = photobook::query()->where('id', $request->photobook)->value('price') * $request->pbqty;
+        $totalprice = $packageprice + $printedphotoprice + $photobookprice;
+
+
+
+        if (empty($request->session()->get('booking'))) {
+            $booking = new Booking();
+            $booking->fill([
+                'paket_id' => $validatedData['paket_id'],
+                'bookdate' => $validatedData['bookdate'],
+                'printedphoto' => $validatedData['printedphoto'],
+                'ppqty' => $validatedData['ppqty'],
+                'photobook' => $validatedData['photobook'],
+                'pbqty' => $validatedData['pbqty'],
+                'totalprice' => $totalprice
+            ]);
+            $request->session()->put('booking', $booking);
+        } else {
+            $booking = $request->session()->get('booking');
+            $booking->fill([
+                'paket_id' => $validatedData['paket_id'],
+                'bookdate' => $validatedData['bookdate'],
+                'printedphoto' => $validatedData['printedphoto'],
+                'ppqty' => $validatedData['ppqty'],
+                'photobook' => $validatedData['photobook'],
+                'pbqty' => $validatedData['pbqty'],
+                'totalprice' => $totalprice
+            ]);
+            $request->session()->put('booking', $booking);
+        }
+        return redirect('/pricelist/order/details');
     }
 
     public function kirim(Request $request)
@@ -76,7 +123,7 @@ class OrderController extends Controller
             $booking->fill($validatedData);
             $request->session()->put('booking', $booking);
         }
-        return redirect('/pricelist/wedding/order/checkout');
+        return redirect('/pricelist/order/checkout');
     }
     public function store(Request $request)
     {
@@ -113,12 +160,22 @@ class OrderController extends Controller
         $product = $request->session()->get('booking');
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
-        return view('pages.custom.customisation', compact('printedphoto', 'photobook', 'product'));
+        $additionals = additionals::all();
+        return view('pages.custom.customisation', compact('printedphoto', 'photobook', 'product', 'additionals'));
     }
+
+
     public function postcustom(Request $request)
     {
+        $additionals = $request->input('additionals');
+        $additionalsjson = json_encode($additionals);
+        $additionalPrice = 0;
 
 
+        foreach ($additionals as $additional) {
+            $additionalData = additionals::query()->where('id', $additional)->value('price');
+            $additionalPrice += $additionalData;
+        }
 
         $validatedDataCustom = $request->validate([
             'photographer' => 'required',
@@ -130,17 +187,21 @@ class OrderController extends Controller
             'flashdisk' => 'nullable',
             'live_streaming' => 'nullable',
             'full_documentation_video' => 'nullable',
+
         ]);
 
         if (empty($request->session()->get('custom'))) {
             $custom = new custom();
+            $custom->additionals = $additionalsjson;
             $custom->fill($validatedDataCustom);
             $request->session()->put('custom', $custom);
         } else {
             $custom = $request->session()->get('custom');
+            $custom->additionals = $additionalsjson;
             $custom->fill($validatedDataCustom);
             $request->session()->put('custom', $custom);
         };
+
 
         $validatedData = $request->validate([
             'paket_id' => 'required',
@@ -149,18 +210,23 @@ class OrderController extends Controller
             'ppqty' => 'required',
             'photobook' => 'required',
             'pbqty' => 'required',
-            'totalprice' => 'required',
+
         ]);
+        $totalprice = $request->input('totalprice');
 
         if (empty($request->session()->get('booking'))) {
             $booking = new Booking();
             $booking->fill($validatedData);
+            $booking->totalprice = $totalprice;
             $request->session()->put('booking', $booking);
         } else {
             $booking = $request->session()->get('booking');
             $booking->fill($validatedData);
+            $booking->totalprice = $totalprice;
             $request->session()->put('booking', $booking);
         };
+
+
 
         return redirect('pricelist/wedding/order/details');
     }

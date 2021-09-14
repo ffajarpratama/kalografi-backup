@@ -73,7 +73,6 @@ class BookingController extends Controller
     public function orderpackage(Request $request)
     {
         $booking = $request->session()->get('booking');
-
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
         $package = Paket::query()->where('id', $booking->paket_id)->first();

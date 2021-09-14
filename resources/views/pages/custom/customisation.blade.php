@@ -114,35 +114,18 @@
                                         </div>
 
                                         <div class="row mt-4 text-secondary">
-                                            <div class="col md-6">
-                                                <label class="container-checkbox">Drone Footage
-                                                    <input type="checkbox" name="drone" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="container-checkbox">1 Minute Cinematic
-                                                    <input type="checkbox" name="1_minute_cinematic_video" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="container-checkbox">3 Minutes Full Cinematic
-                                                    <input type="checkbox" name="3_minute_cinematic_video" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="col md-6">
-                                                <label class="container-checkbox">Flashdisk
-                                                    <input type="checkbox" name="flashdisk" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="container-checkbox">Live Streaming
-                                                    <input type="checkbox" name="live_streaming" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <label class="container-checkbox">Full Documentation Video
-                                                    <input type="checkbox" name="full_documentation_video" value="Yes">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
+                                            @foreach ($additionals as $additionals)
+                                                <div class="col-md-6">
+                                                    <label class="container-checkbox">{{ $additionals->name }}
+                                                        <input type="checkbox" id="additionals" name="additionals[]"
+                                                            value="{{ $additionals->id }}"
+                                                            data-price="{{ $additionals->price }}">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            @endforeach
                                         </div>
+
                                     </div>
 
                                     <div class="row text-center mb-4">
@@ -185,7 +168,7 @@
                         <div class="col">
                             <button type="submit" href="{{ route('landing') }}" class="btn btn-kalografi btn-sm"
                                 style="width: 60%; height:120%; border-radius:10px">
-                                Back to Home
+                                Proceed
                             </button>
                             </form>
                         </div>
@@ -198,6 +181,8 @@
     <script>
         var total_price;
         var totalPriceInRupiah;
+        var additionalprice = 0;
+        var cbs = document.querySelectorAll('input[type=checkbox]');
 
         function numberToRupiah(number) {
             const format = number.toString().split('').reverse().join('');
@@ -206,7 +191,21 @@
             return rupiah;
         };
 
+        for (var i = 0; i < cbs.length; i++) {
+            cbs[i].addEventListener('change', function() {
+                if (this.checked) {
+                    additionalprice += parseInt(this.getAttribute('data-price'))
+
+                } else {
+                    additionalprice -= parseInt(this.getAttribute('data-price'))
+
+                }
+            });
+        }
+
         function calculate() {
+
+
             PhotographerselectedId = document.forms['total_form'].elements['photographer'].options[document.forms[
                 'total_form'].elements['photographer'].selectedIndex].getAttribute('data-bs-harga-photo');
 
@@ -227,7 +226,7 @@
             total_price = parseInt(PhotographerselectedId) + parseInt(VideographerselectedId) + parseInt(
                     printedphotoselectedId) *
                 ppqtyselectedId +
-                parseInt(photobookselectedId) * pbqtyselectedId;
+                parseInt(photobookselectedId) * pbqtyselectedId + additionalprice;
 
             totalPriceInRupiah = numberToRupiah(total_price);
 
@@ -236,7 +235,7 @@
             document.getElementById('grand_total').value = total_price;
 
 
-            console.log(total_price);
+            console.log(total_pricez);
 
         };
     </script>

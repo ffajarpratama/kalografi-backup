@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid py-5" style="background-color: #FAFBFA">
         <div class="container">
-            <form action="/pricelist/wedding/mahawira/order" method="post">
+            <form action="/pricelist/detail/order" method="post">
                 {{ csrf_field() }}
                 <div class="row justify-content-between">
                     <div class="col-md-5">

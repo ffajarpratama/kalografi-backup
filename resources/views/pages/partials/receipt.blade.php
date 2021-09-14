@@ -9,6 +9,8 @@
                         Custom Package
                     @else
                         {{ $booking->pakets->namapaket }}
+                        <br>
+                        {{ $booking->pakets->kategori }}
                     @endif
                 </h3>
             </div>
@@ -100,13 +102,20 @@
                             Custom Package
                         @else
                             {{ $booking->pakets->namapaket }}
+
+                            {{ $booking->pakets->kategori }}
                         @endif
 
                     </p>
                 </div>
                 <div class="col-md-4">
                     <p id="pricepackage" class="semi-bold text-secondary mb-0 text-end">
-                        Rp. {{ number_format($booking->totalprice) }}
+                        @if ($booking->paket_id == 0)
+                            Rp.
+                            {{ number_format($booking->totalprice - ($pp->price * $booking->ppqty + $pb->price * $booking->pbqty)) }}
+                        @else
+                            Rp. {{ number_format($booking->pakets->price) }}
+                        @endif
                     </p>
                 </div>
             </div>

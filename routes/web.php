@@ -35,47 +35,44 @@ Route::get('/portfolio/Pre-WeddingR&Bjepara', function () {
     return view('pages.portfolio.pre-wedding.index');
 })->name('portfolio/pre-wedding');
 
-/* Pricelist and ordering */
+
+/* Pricelist and Custom Order */
 Route::get('pricelist/wedding', [WeddingController::class, 'index'])
     ->name('pricelist.wedding.index');
 
 Route::get('pricelist/pre-wedding', [BookingController::class, 'prewedding'])
     ->name('pricelist.pre-wedding.index');
 
-Route::get('pricelist/order', [BookingController::class, 'orderpackage'])
-    ->name('pricelist.orderpackage');
-
-Route::post('pricelist/post', [BookingController::class, 'orderfirststep']);
-
 Route::get('pricelist/engagement', [BookingController::class, 'engagement'])
     ->name('pricelist.engagement.index');
 
-
-
-
-Route::post('pricelist/wedding/postorder', [WeddingController::class, 'postCreateStep1']);
-
-Route::get('pricelist/wedding/order/details', [OrderController::class, 'order'])
-    ->name('pricelist.wedding.order');
-Route::post('/pricelist/wedding/mahawira/order', [OrderController::class, 'kirim']);
-
-Route::get('pricelist/wedding/order/checkout', [OrderController::class, 'checkout'])
-    ->name('pricelist.wedding.checkout');
-Route::post('/pricelist/wedding/mahawira/checkout',  [OrderController::class, 'store']);
-
-/*-----------------------------------*/
-
-Route::get('pricelist/wedding/mahesa', [WeddingController::class, 'Mahesa'])
-    ->name('pricelist.wedding.mahesa');
-
-
-Route::get('/payment-confirmation', [OrderController::class, 'payment'])
-    ->name('payment.confirmation');
-
-
+Route::post('pricelist/post', [BookingController::class, 'orderfirststep']);
 
 Route::get('/custom', [OrderController::class, 'custom'])->name('custom_package');
 Route::post('/postcustom', [OrderController::class, 'postcustom'])->name('post-custom');
+
+
+/* creating bookings & custom */
+Route::get('pricelist/order', [BookingController::class, 'orderpackage'])
+    ->name('pricelist.orderpackage');
+
+Route::post('pricelist/postorder', [OrderController::class, 'postCreateStep1']);
+
+Route::get('pricelist/order/details', [OrderController::class, 'order'])
+    ->name('pricelist.wedding.order');
+Route::post('/pricelist/detail/order', [OrderController::class, 'kirim']);
+
+Route::get('pricelist/order/checkout', [OrderController::class, 'checkout'])
+    ->name('pricelist.order.checkout');
+Route::post('/pricelist/order/checkout/store',  [OrderController::class, 'store']);
+
+
+
+
+/*-----------------------------------*/
+Route::get('/payment-confirmation', [OrderController::class, 'payment'])
+    ->name('payment.confirmation');
+
 
 
 /* searching & adminsearch */

@@ -10,7 +10,7 @@
 
             <div class="row row-cols-1 row-cols-md-3">
                 @foreach ($package as $package)
-                    @if ($package->kategori == 'Engagement')
+                    @if ($package->kategori == 'Engagement Package')
                         <form action="/pricelist/post" method="post">
                             {{ csrf_field() }}
                             <div class="col">
@@ -22,7 +22,8 @@
                                             <div class="card-title text-center my-2">
                                                 <input type="hidden" name="paket_id" value="{{ $package->id }}">
                                                 <h4 class="semi-bold text-secondary" style="letter-spacing: -0.5px">
-                                                    {{ $package->namapaket }}
+                                                    {{ $package->namapaket }} <br>
+                                                    {{ $package->kategori }}
                                                 </h4>
                                             </div>
                                         </div>
@@ -63,43 +64,10 @@
             </div>
 
 
-            <div class="container-fluid py-5 mt-5" style="background-color: #FAFBFA">
-                <div class="container mt-5">
-                    <div class="row text-center mb-3">
-                        <div class="col">
-                            <h3 class="semi-bold mb-0" style="color: #8F9C69; letter-spacing: -1px; font-size:48px">
-                                So, you can’t find package <br>
-                                that fits into you?
-                            </h3>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <div class="row mt-5">
-                                    <p class=" text-secondary text-center fs-4">Click button below to customize your
-                                        package.
-                                    </p>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <br>
-                                        <button class="btn btn-kalografi btn-sm" style="width: 80%; height:85%">
-                                            <a href="/custom" class="btn btn-kalografi btn-sm"> Customize your package </a>
-                                        </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('pages.partials.custom')
 
 
         </div>
     </div>
-    <script>
-        function alert1() {
-            alert("Currently Unavailable");
-        }
-    </script>
+
 @include(' layouts.partials.footer') @endsection

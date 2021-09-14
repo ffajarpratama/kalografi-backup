@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-md-3"></div>
                     </div>
-                    <form action="/pricelist/wedding/mahawira/checkout" method="post" id="form_discount">
+                    <form action="/pricelist/order/checkout/store" method="post" id="form_discount">
                         {{ csrf_field() }}
                         <div class="row mb-3">
                             <div class="form-group row mb-3">
