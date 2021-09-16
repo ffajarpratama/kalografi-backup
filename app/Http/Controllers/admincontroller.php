@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\Paket;
+use App\Models\photobook;
+use App\Models\printedphoto;
 use App\Models\status;
 use Illuminate\Support\Facades\Redirect;
 
@@ -25,9 +28,10 @@ class admincontroller extends Controller
 
     public function post(Request $request)
     {
-        $order = Booking::query()->findOrFail($request->order_id);
-        $status = status::query()->where('booking_id', $order->id)->first();
-        return view('pages.admin.adminsearch', compact('order', 'status'));
+        $booking = Booking::query()->findOrFail($request->order_id);
+        $status = status::query()->where('booking_id', $booking->id)->first();
+        $package = Paket::all();
+        return view('pages.admin.adminsearch', compact('booking', 'status', 'package'));
     }
 
     /**

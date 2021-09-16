@@ -112,7 +112,7 @@
                     <p id="pricepackage" class="semi-bold text-secondary mb-0 text-end">
                         @if ($booking->paket_id == 0)
                             Rp.
-                            {{ number_format($booking->totalprice - ($pp->price * $booking->ppqty + $pb->price * $booking->pbqty)) }}
+                            {{ number_format($booking->totalprice - ($booking->printedphotos->price * $booking->ppqty + $booking->photobooks->price * $booking->pbqty)) }}
                         @else
                             Rp. {{ number_format($booking->pakets->price) }}
                         @endif
@@ -128,12 +128,12 @@
                 </div>
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0">
-                        {{ $pp->printedphoto }}
+                        {{ $booking->printedphotos->printedphoto }}
                     </p>
                 </div>
                 <div class="col-md-4">
                     <p id="priceprintedphoto" class="semi-bold text-secondary mb-0 text-end">
-                        Rp. {{ number_format($pp->price * $booking->ppqty) }}
+                        Rp. {{ number_format($booking->printedphotos->price * $booking->ppqty) }}
                     </p>
                 </div>
             </div>
@@ -146,12 +146,12 @@
                 </div>
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0">
-                        {{ $pb->photobook }}
+                        {{ $booking->photobooks->photobook }}
                     </p>
                 </div>
                 <div class="col-md-4">
                     <p id="pricephotobook" class="semi-bold text-secondary mb-0 text-end">
-                        Rp. {{ number_format($pb->price * $booking->pbqty) }}
+                        Rp. {{ number_format($booking->photobooks->price * $booking->pbqty) }}
                     </p>
                 </div>
             </div>

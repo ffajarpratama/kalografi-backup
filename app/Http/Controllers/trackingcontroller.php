@@ -49,9 +49,9 @@ class trackingcontroller extends Controller
      */
     public function post(Request $request)
     {
-        $order = Booking::query()->findOrFail($request->order_id);
-        $status = status::query()->where('booking_id', $order->id)->first();
-        return view('pages.track.trackbook', compact('order', 'status'));
+        $booking = Booking::query()->findOrFail($request->order_id);
+        $status = status::query()->where('booking_id', $booking->id)->first();
+        return view('pages.track.trackbook', compact('booking', 'status'));
     }
 
     /**
