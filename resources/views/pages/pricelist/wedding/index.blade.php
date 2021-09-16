@@ -38,7 +38,7 @@
                                         </div>
 
                                         <div class="row text-center mb-4">
-                                            <small class="mb-2">{{ $package->workhours }}</small>
+                                            <small class="mb-2">{{ $package->workhours }} Work Hours</small>
                                             <small class="mb-2">{{ $package->photographers }} Photographer +
                                                 {{ $package->videographers }}
                                                 Videographer</small>

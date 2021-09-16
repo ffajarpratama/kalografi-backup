@@ -228,6 +228,6 @@ class OrderController extends Controller
 
 
 
-        return redirect('pricelist/wedding/order/details');
+        return redirect('pricelist/order/details');
     }
 }

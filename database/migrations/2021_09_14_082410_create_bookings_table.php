@@ -14,8 +14,10 @@ class CreateBookingsTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('paket_id')->constrained('pakets')->onDelete('CASCADE');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('paket_id')->nullable()->index('bookings_paket_id_foreign');
+            $table->bigInteger('custom_id')->nullable()->index('fk_custom_id');
+            $table->date('bookdate');
             $table->string('printedphoto');
             $table->integer('ppqty');
             $table->string('photobook');
@@ -25,8 +27,11 @@ class CreateBookingsTable extends Migration
             $table->string('weddingstyle');
             $table->string('fullname');
             $table->string('email');
-            $table->integer('phonenumber');
-            $table->foreignId('discount_id')->constrained('discounts')->onDelete('CASCADE');
+            $table->string('phonenumber');
+            $table->string('address');
+            $table->unsignedBigInteger('discount_id')->nullable()->index('bookings_discount_id_foreign');
+            $table->integer('payment_termination')->nullable();
+            $table->integer('totalprice');
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@
                         <p class="text-secondary">Name</p>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-secondary" id="previewnama"></p>
+                        <p class="text-secondary" id="previewnama">{{ $booking->fullname }}</p>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                         <p class="text-secondary">Email</p>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-secondary" id="previewemail"></p>
+                        <p class="text-secondary" id="previewemail">{{ $booking->email }}</p>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                         <p class="text-secondary">Phone Number</p>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-secondary" id="previewnomor"></p>
+                        <p class="text-secondary" id="previewnomor">{{ $booking->phonenumber }}</p>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-4">
                     <p id="pricepackage" class="text-secondary mb-0 text-end text-bold">
-                        {{ date_format(date_create($booking->bookdate), 'Y F d') }}
+                        {{ date_format(date_create($booking->bookdate), 'd F Y') }}
                     </p>
                 </div>
             </div>

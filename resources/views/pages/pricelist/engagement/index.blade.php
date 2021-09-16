@@ -8,7 +8,7 @@
                 </h3>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3">
+            <div class="row row-cols-1 row-cols-md-3 justify-content-center">
                 @foreach ($package as $package)
                     @if ($package->kategori == 'Engagement Package')
                         <form action="/pricelist/post" method="post">
@@ -35,10 +35,14 @@
                                         </div>
 
                                         <div class="row text-center mb-4">
-                                            <small class="mb-2">{{ $package->workhours }} Spot</small>
-                                            <small class="mb-2">{{ $package->photographers }} Photographer +
-                                                {{ $package->videographers }}
-                                                Videographer</small>
+                                            <small class="mb-2">{{ $package->workhours }} Work Hours</small>
+                                            <small class="mb-2">{{ $package->photographers }} Photographer
+                                                @if ($package->videographers == 0)
+
+                                                @else
+                                                    + {{ $package->videographers }} Videographer
+                                                @endif
+                                            </small>
                                             @if ($package->flashdisk == 0)
                                                 <small class="mb-2">All Files by Google Drive</small>
                                             @else
