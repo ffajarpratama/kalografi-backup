@@ -14,11 +14,10 @@ class CreateAdditionalsTable extends Migration
     public function up()
     {
         Schema::create('additionals', function (Blueprint $table) {
-            $table->integer('id', true);
+            $table->bigIncrements('id');
             $table->string('name');
             $table->integer('price');
-            $table->timestamp('created_at', 6)->default('current_timestamp(6)');
-            $table->timestamp('updated_at', 6)->default('current_timestamp(6)');
+            $table->timestamps();
         });
     }
 
