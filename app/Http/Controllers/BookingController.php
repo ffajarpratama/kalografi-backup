@@ -14,7 +14,7 @@ class BookingController extends Controller
 
     public function home()
     {
-        session()->flush();
+        session()->forget('booking');
         return view('pages.landing.index');
     }
     public function index()
