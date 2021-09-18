@@ -73,14 +73,19 @@ Route::get('/payment-confirmation', [OrderController::class, 'payment'])
     ->name('payment.confirmation');
 
 
-/* searching & adminsearch */
+/* searching */
 Route::get('trackingorder', [trackingcontroller::class, 'index']);
 Route::get('search', [trackingcontroller::class, 'post'])->name('requestorder');
 
-Route::middleware('auth')->group(function () {
-    Route::get('adminsearch', [admincontroller::class, 'post'])->name('adminrequestorder');
-    Route::get('admin', [admincontroller::class, 'index'])->name('request-status');
-    Route::post('/request/status', [admincontroller::class, 'edit']);
+//ADMIN ROUTES
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    //ADMIN DASHBOARD
+    Route::get('/dashboard', [admincontroller::class, 'dashboard'])->name('dashboard');
+
+    //ADMIN SEARCH ROUTES
+    Route::get('/search', [admincontroller::class, 'index'])->name('search-booking');
+    Route::get('/request-status', [admincontroller::class, 'post'])->name('request-status');
+    Route::post('/update-status', [admincontroller::class, 'edit'])->name('update-status');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

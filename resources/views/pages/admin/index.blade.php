@@ -21,9 +21,8 @@
 
                 <div class="row justify-content-center">
                     <div class="col-md-5">
-
                         <div class="row">
-                            <form action="{{ route('adminrequestorder') }}" method="GET">
+                            <form action="{{ route('admin.request-status') }}" method="GET">
                                 <input type="number" name="order_id" class="form-control form-control-sm text-center">
                         </div>
                         <div class="row">
@@ -31,13 +30,12 @@
                                 {{-- Button trigger modal --}}
                                 <br>
                                 <button class="btn btn-kalografi semi-bold" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" style="width: 100%">
+                                        data-bs-target="#exampleModal" style="width: 100%">
                                     Check Now!
                                 </button>
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
