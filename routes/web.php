@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/',  [BookingController::class, 'home'])->name('landing');
+Auth::routes();
+
+Route::get('/', [BookingController::class, 'home'])->name('landing');
 
 Route::get('/portfolio', function () {
     return view('pages.portfolio.index');
@@ -63,9 +65,7 @@ Route::post('/pricelist/detail/order', [OrderController::class, 'kirim']);
 
 Route::get('pricelist/order/checkout', [OrderController::class, 'checkout'])
     ->name('pricelist.order.checkout');
-Route::post('/pricelist/order/checkout/store',  [OrderController::class, 'store']);
-
-
+Route::post('/pricelist/order/checkout/store', [OrderController::class, 'store']);
 
 
 /*-----------------------------------*/
@@ -73,17 +73,15 @@ Route::get('/payment-confirmation', [OrderController::class, 'payment'])
     ->name('payment.confirmation');
 
 
-
 /* searching & adminsearch */
 Route::get('trackingorder', [trackingcontroller::class, 'index']);
 Route::get('search', [trackingcontroller::class, 'post'])->name('requestorder');
-Route::get('adminsearch', [admincontroller::class, 'post'])->name('adminrequestorder');
-Route::get('admin', [admincontroller::class, 'index'])->name('request-status');
-Route::post('/request/status',  [admincontroller::class, 'edit']);
 
-
-
-Auth::routes();
+Route::middleware('auth')->group(function () {
+    Route::get('adminsearch', [admincontroller::class, 'post'])->name('adminrequestorder');
+    Route::get('admin', [admincontroller::class, 'index'])->name('request-status');
+    Route::post('/request/status', [admincontroller::class, 'edit']);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
