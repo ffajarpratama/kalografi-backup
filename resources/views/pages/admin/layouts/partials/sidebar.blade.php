@@ -40,7 +40,14 @@
     <div class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Packages</span></a>
+            <span>Additional Features</span></a>
+    </div>
+
+    <!-- Nav Item - Charts -->
+    <div class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-percent"></i>
+            <span>Discounts</span></a>
     </div>
 
     <!-- Nav Item - Tables -->
