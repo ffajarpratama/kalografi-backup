@@ -2,7 +2,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}" style="background-color:#8F9C69; ">
-        <img src="{{ asset('placeholders/kalografi.png') }}" alt="kalografiLogo" style="width: 80%; height: auto;">
+        <img src="{{ asset('placeholders/kalografi.png') }}" alt="kalografiLogo" style="width: 75%; height: auto;">
     </a>
 
     <!-- Divider -->
@@ -66,13 +66,6 @@
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
             <span>Discounts</span></a>
-    </div>
-
-    <!-- Nav Item - Tables -->
-    <div class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
     </div>
 
     <!-- Divider -->

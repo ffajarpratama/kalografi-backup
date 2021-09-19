@@ -22,15 +22,15 @@ class AdminController extends Controller
 
     public function searchResult(Request $request)
     {
-//        $booking = Booking::query()->findOrFail($request->order_id);
-//        $status = status::query()->where('booking_id', $booking->id)->first();
-//        $package = Paket::all();
-        return view('pages.admin.search-result');
+        $booking = Booking::query()->findOrFail($request->order_id);
+        $status = status::query()->where('booking_id', $booking->id)->first();
+        $package = Paket::all();
+        return view('pages.admin.search-result', compact('booking', 'status', 'package'));
     }
 
     public function update(Request $request)
     {
-        $bookingId = $request->bookingId;
+        $bookingId = $request->bookingid;
         $status = status::query()
             ->where('booking_id', $bookingId)
             ->first();
