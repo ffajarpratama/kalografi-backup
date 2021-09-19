@@ -4,7 +4,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-kalografi shadow-sm">
                 <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 
@@ -105,7 +105,7 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                        <h6 class="m-0 font-weight-bold text-kalografi">Earnings Overview</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -136,7 +136,7 @@
                     <!-- Card Header - Dropdown -->
                     <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                        <h6 class="m-0 font-weight-bold text-kalografi">Revenue Sources</h6>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -158,15 +158,15 @@
                             <canvas id="myPieChart"></canvas>
                         </div>
                         <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
                             <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
+                                <i class="fas fa-circle text-primary"></i> Direct
+                            </span>
                             <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                <i class="fas fa-circle text-success"></i> Social
+                            </span>
+                            <span class="mr-2">
+                                <i class="fas fa-circle text-info"></i> Referral
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                        <h6 class="m-0 font-weight-bold text-kalografi">Projects</h6>
                     </div>
                     <div class="card-body">
                         <h4 class="small font-weight-bold">Server Migration <span
@@ -293,7 +293,7 @@
                 <!-- Illustrations -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                        <h6 class="m-0 font-weight-bold text-kalografi">Illustrations</h6>
                     </div>
                     <div class="card-body">
                         <div class="text-center">
@@ -312,7 +312,7 @@
                 <!-- Approach -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                        <h6 class="m-0 font-weight-bold text-kalografi">Development Approach</h6>
                     </div>
                     <div class="card-body">
                         <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce

@@ -1,7 +1,7 @@
-<div class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<div class="navbar-nav sidebar-dark sidebar accordion" id="accordionSidebar" style="background-color: #8F9C69;">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}" style="background-color:#8F9C69; ">
         <div class="sidebar-brand-text mx-3">Kalografi</div>
     </a>
 
@@ -20,12 +20,12 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <div class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePackages"
            aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
             <span>Packages</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePackages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{--<h6 class="collapse-header">Login Screens:</h6>--}}
                 <a class="collapse-item" href="#">Pre-Wedding</a>
@@ -36,11 +36,22 @@
         </div>
     </div>
 
-    <!-- Nav Item - Charts -->
+    <!-- Nav Item - Pages Collapse Menu -->
     <div class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Additional Features</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFeatures"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Features</span>
+        </a>
+        <div id="collapseFeatures" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                {{--<h6 class="collapse-header">Login Screens:</h6>--}}
+                <a class="collapse-item" href="#">Photobook</a>
+                <a class="collapse-item" href="#">Printed Photo</a>
+                <a class="collapse-item" href="#">Additional Services</a>
+                <div class="collapse-divider"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Nav Item - Charts -->
@@ -67,10 +78,8 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
-            and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-            Pro!</a>
+        <p class="text-center mb-2"><strong>din mau roko :(</strong> </p>
+        <a class="btn btn-success btn-sm" href="#">very sad button</a>
     </div>
 
 </div>

@@ -21,4 +21,30 @@
     body {
         font-family: 'Poppins', sans-serif;
     }
+
+    .btn-kalografi {
+        color: #FFFFFF;
+        background-color: #8F9C69;
+        opacity: 100%;
+    }
+
+    .btn-kalografi:hover {
+        color: #FFFFFF;
+        background-color: #8F9C69;
+        opacity: 80%;
+    }
+
+    .btn-outline-kalografi {
+        color: #8F9C69;
+        border-color: #8F9C69;
+    }
+
+    .btn-outline-kalografi:hover {
+        color: #FFFFFF;
+        background-color: #8F9C69;
+    }
+
+    .text-kalografi {
+        color: #8F9C69;
+    }
 </style>
