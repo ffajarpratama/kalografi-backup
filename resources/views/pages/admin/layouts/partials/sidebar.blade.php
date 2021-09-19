@@ -2,21 +2,28 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}" style="background-color:#8F9C69; ">
-        <div class="sidebar-brand-text mx-3">Kalografi</div>
+        <img src="{{ asset('placeholders/kalografi.png') }}" alt="kalografiLogo" style="width: 80%; height: auto;">
     </a>
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <hr class="sidebar-divider my-0" style="color: white;">
 
     <!-- Nav Item - Dashboard -->
     <div class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </div>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider" style="color: white;">
+
+    <!-- Nav Item - Discounts -->
+    <div class="nav-item">
+        <a class="nav-link" href="{{ route('admin.search') }}">
+            <i class="fas fa-fw fa-search"></i>
+            <span>Search Booking</span></a>
+    </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <div class="nav-item">
@@ -54,7 +61,7 @@
         </div>
     </div>
 
-    <!-- Nav Item - Charts -->
+    <!-- Nav Item - Discounts -->
     <div class="nav-item">
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-percent"></i>
@@ -69,7 +76,7 @@
     </div>
 
     <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+    <hr class="sidebar-divider d-none d-md-block" style="color: white;">
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admincontroller;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\trackingcontroller;
@@ -80,12 +80,12 @@ Route::get('search', [trackingcontroller::class, 'post'])->name('requestorder');
 //ADMIN ROUTES
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     //ADMIN DASHBOARD
-    Route::get('/dashboard', [admincontroller::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     //ADMIN SEARCH ROUTES
-    Route::get('/search', [admincontroller::class, 'index'])->name('search-booking');
-    Route::get('/request-status', [admincontroller::class, 'post'])->name('request-status');
-    Route::post('/update-status', [admincontroller::class, 'edit'])->name('update-status');
+    Route::get('/search', [AdminController::class, 'search'])->name('search');
+    Route::get('/search-result', [AdminController::class, 'searchResult'])->name('search-result');
+    Route::post('/update-status', [AdminController::class, 'update'])->name('update-status');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

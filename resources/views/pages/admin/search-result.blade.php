@@ -19,13 +19,13 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <p id="percentage" class="progress-label" style=" float: rigt; margin-left: 1em;">
+                            <p id="percentage" class="progress-label" style=" float: right; margin-left: 1em;">
                                 75%
                             </p>
                         </div>
                     </div>
 
-                    <div row class="mb-4">
+                    <div class="row mb-4">
                         <div class="col">
                             Current progress: -
                         </div>

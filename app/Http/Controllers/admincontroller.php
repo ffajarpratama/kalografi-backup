@@ -28,10 +28,10 @@ class admincontroller extends Controller
 
     public function post(Request $request)
     {
-        $booking = Booking::query()->findOrFail($request->order_id);
-        $status = status::query()->where('booking_id', $booking->id)->first();
-        $package = Paket::all();
-        return view('pages.admin.adminsearch', compact('booking', 'status', 'package'));
+//        $booking = Booking::query()->findOrFail($request->order_id);
+//        $status = status::query()->where('booking_id', $booking->id)->first();
+//        $package = Paket::all();
+        return view('pages.admin.adminsearch');
     }
 
     public function dashboard()
