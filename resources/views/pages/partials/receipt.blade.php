@@ -1,9 +1,7 @@
-<div class="col-md-6">
+<div class="col-md-5">
     <div class="card px-5 py-3" style="border-radius: 20px;">
         <div class="card-body">
             <div class="row text-center">
-
-
                 <h3 class="fs-2 fw-bold text-kalografi mb-3">
                     @if ($booking->paket_id == 0)
                         Custom Package
@@ -15,9 +13,11 @@
                 </h3>
             </div>
 
-            <div class="row text-center">
-                <p class="semi-bold text-secondary fs-5">Order ID : <strong>{{ $booking->id }}</strong></p>
-            </div>
+            @if($booking->id !== null)
+                <div class="row text-center">
+                    <p class="semi-bold text-secondary fs-5">Order ID : <strong>{{ $booking->id }}</strong></p>
+                </div>
+            @endif
 
             <div class="row text-center">
                 <p class="text-secondary">
@@ -59,25 +59,24 @@
 
             <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
-
             <div class="row mt-2 text-center mb-4 justify-content-center">
                 <p class="semi-bold text-secondary fs-5">Order Details</p>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button id="previewvenue" class="btn btn-sm semi-bold fs-7 btn-outline-kalografi" disabled
-                        style="width: 100%">
+                            style="width: 100%">
                         {{ $booking->venue }}
                     </button>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button id="previewtone" class="btn btn-sm semi-bold fs-7 btn-outline-kalografi" disabled
-                        style="width: 100%">
+                            style="width: 100%">
                         {{ $booking->tone }}
                     </button>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button id="previewweddingstyle" disabled class="btn btn-sm semi-bold fs-7 btn-outline-kalografi"
-                        style="width: 100%">
+                            style="width: 100%">
                         {{ $booking->weddingstyle }}
                     </button>
                 </div>
@@ -86,8 +85,9 @@
             <div class="row mb-3 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="package_qty"
-                        id="package_qty" value="1" aria-label="package_qty" style="width: 40px;" disabled>
+                           id="package_qty" value="1" aria-label="package_qty" style="width: 40px;" disabled>
                 </div>
+
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0">
                         @if ($booking->paket_id == 0)
@@ -97,7 +97,6 @@
 
                             {{ $booking->pakets->kategori }}
                         @endif
-
                     </p>
                 </div>
                 <div class="col-md-4">
@@ -115,14 +114,16 @@
             <div class="row mb-3 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="print_quantity"
-                        id="print_quantity" value="{{ $booking->ppqty }}" aria-label="print_quantity"
-                        style="width: 40px;" disabled>
+                           id="print_quantity" value="{{ $booking->ppqty }}" aria-label="print_quantity"
+                           style="width: 40px;" disabled>
                 </div>
+
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0">
                         {{ $booking->printedphotos->printedphoto }}
                     </p>
                 </div>
+
                 <div class="col-md-4">
                     <p id="priceprintedphoto" class="semi-bold text-secondary mb-0 text-end">
                         Rp. {{ number_format($booking->printedphotos->price * $booking->ppqty) }}
@@ -133,14 +134,16 @@
             <div class="row mb-4 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="photobook_quantity"
-                        id="photobook_quantity" value="{{ $booking->pbqty }}" aria-label="photobook_quantity"
-                        style="width: 40px;" disabled>
+                           id="photobook_quantity" value="{{ $booking->pbqty }}" aria-label="photobook_quantity"
+                           style="width: 40px;" disabled>
                 </div>
+
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0">
                         {{ $booking->photobooks->photobook }}
                     </p>
                 </div>
+
                 <div class="col-md-4">
                     <p id="pricephotobook" class="semi-bold text-secondary mb-0 text-end">
                         Rp. {{ number_format($booking->photobooks->price * $booking->pbqty) }}
@@ -148,12 +151,45 @@
                 </div>
             </div>
 
+            <div id="discountDiv" class="row mb-4 justify-content-between align-items-center" style="font-size: 14px; display: none;">
+                <div class="col-md-2"></div>
+                <div class="col-md-6 px-0">
+                    <p class="text-secondary mb-0" id="discountText"></p>
+                </div>
+                <div class="col-md-4">
+                    <p class="semi-bold text-secondary mb-0 text-end" id="discountPrice"></p>
+                </div>
+            </div>
+
             <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+
+            <div id="downPaymentDiv" style="display: none;">
+                <div class="row mb-2 justify-content-between align-items-center" style="font-size: 14px;">
+                    <div class="col-md-6 px-0">
+                        <p class="text-secondary mb-0 ps-3" id="downPaymentText"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="semi-bold text-secondary mb-0 text-end" id="downPaymentAmount"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-4 justify-content-between align-items-center" style="font-size: 14px;">
+                    <div class="col-md-6 px-0">
+                        <p class="text-secondary mb-0 ps-3" id="installmentText"></p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="semi-bold text-secondary mb-0 text-end" id="installmentAmount"></p>
+                    </div>
+                </div>
+
+                <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+            </div>
 
             <div class="row mb-4 mt-4">
                 <div class="col-md-6">
                     <img src="{{ asset('placeholders/visa.png') }}" alt="visa">
                 </div>
+
                 <div class="col-md-6">
                     <div class="row">
                         <p class="semi-bold text-secondary text-end mb-0">Total</p>
@@ -165,18 +201,15 @@
                         <input type="hidden" id="grand_total" name="totalprice" value="{{ $booking->totalprice }}">
                         <input type="hidden" id="id_diskon" name="discount_id" value="">
                         <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col">
-                    <button type="submit" class="btn btn-lg btn-kalografi semi-bold" style="display: block">Continue to
-                        payment
-                    </button>
-                    </form>
-                </div>
+                <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block">
+                    Continue to payment
+                </button>
             </div>
         </div>
     </div>
+</div>

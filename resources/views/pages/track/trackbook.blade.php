@@ -63,7 +63,6 @@
             </div>
         </div>
     </div>
-    </div>
 
     <script>
         const status = {{ $status->current_status }};

@@ -32,6 +32,9 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('discount_id')->nullable()->index('bookings_discount_id_foreign');
             $table->integer('payment_termination')->nullable();
             $table->integer('totalprice');
+            $table->integer('downPayment')->nullable();
+            $table->integer('installment')->nullable();
+            $table->boolean('isPaymentCompleted')->default(0);
             $table->timestamps();
         });
     }

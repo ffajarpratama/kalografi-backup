@@ -61,10 +61,12 @@ Route::post('pricelist/postorder', [OrderController::class, 'postCreateStep1']);
 
 Route::get('pricelist/order/details', [OrderController::class, 'order'])
     ->name('pricelist.wedding.order');
+
 Route::post('/pricelist/detail/order', [OrderController::class, 'kirim']);
 
 Route::get('pricelist/order/checkout', [OrderController::class, 'checkout'])
     ->name('pricelist.order.checkout');
+
 Route::post('/pricelist/order/checkout/store', [OrderController::class, 'store']);
 
 

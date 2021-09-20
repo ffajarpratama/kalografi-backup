@@ -6,21 +6,15 @@ use App\Models\additionals;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Paket;
-use App\Models\galeri;
 use App\Models\discount;
 use App\Models\printedphoto;
 use App\Models\photobook;
 use App\Models\status;
 use App\Models\custom;
-use Facade\Ignition\QueryRecorder\Query;
-use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Expr\Empty_;
 
 class OrderController extends Controller
 {
-
-
+    //CREATE BOOKING
     public function order(Request $request)
     {
         if (session()->has('booking')) {
@@ -34,9 +28,9 @@ class OrderController extends Controller
         return view('pages.pricelist.order.create', compact('booking', 'package', 'pp', 'pb'));
     }
 
+    //CHECKOUT BOOKING
     public function checkout(Request $request)
     {
-
         if (session()->has('booking')) {
             $discount = discount::all();
             $booking = $request->session()->get('booking');
@@ -49,6 +43,7 @@ class OrderController extends Controller
         }
     }
 
+    //SHOW PAYMENT CONFIRMATION PAGE
     public function payment()
     {
         return view('pages.pricelist.order.payment');
@@ -65,10 +60,9 @@ class OrderController extends Controller
             'pbqty' => 'required',
         ]);
         $packageprice = Paket::query()->where('id', $request->paket_id)->value('price');
-        $printedphotoprice  = printedphoto::query()->where('id', $request->printedphoto)->value('price') * $request->ppqty;
-        $photobookprice  = photobook::query()->where('id', $request->photobook)->value('price') * $request->pbqty;
+        $printedphotoprice = printedphoto::query()->where('id', $request->printedphoto)->value('price') * $request->ppqty;
+        $photobookprice = photobook::query()->where('id', $request->photobook)->value('price') * $request->pbqty;
         $totalprice = $packageprice + $printedphotoprice + $photobookprice;
-
 
 
         if (empty($request->session()->get('booking'))) {
@@ -125,13 +119,27 @@ class OrderController extends Controller
         }
         return redirect('/pricelist/order/checkout');
     }
+
     public function store(Request $request)
     {
+        $totalPrice = (int)$request->totalprice;
+        $downPayment = null;
+        $installment = (int)$request->totalprice;
+
+        if ($request->payment_termination == 2) {
+            $totalPrice = (int)$request->totalprice;
+            $downPayment = (int)$request->totalprice / 2;
+            $installment = (int)$request->totalprice / 2;
+        }
+
         $booking = $request->session()->get('booking');
         $custom = $request->session()->get('custom');
         $booking->payment_termination = $request->payment_termination;
-        $booking->totalprice = $request->totalprice;
+        $booking->totalprice = $totalPrice;
         $booking->discount_id = $request->discount_id;
+        $booking->downPayment = $downPayment;
+        $booking->installment = $installment;
+        $booking->isPaymentCompleted = false;
 
 
         if ($booking->paket_id == 0) {
@@ -146,6 +154,7 @@ class OrderController extends Controller
         Status::create([
             'booking_id' => $booking->id
         ]);
+
         return redirect('payment-confirmation');
     }
 
@@ -155,6 +164,7 @@ class OrderController extends Controller
         return view('pages.post', compact('data'));
     }
 
+    //CREATE CUSTOM PACKAGE
     public function custom(Request $request)
     {
         $product = $request->session()->get('booking');
@@ -164,7 +174,7 @@ class OrderController extends Controller
         return view('pages.custom.customisation', compact('printedphoto', 'photobook', 'product', 'additionals'));
     }
 
-
+    //CREATE BOOKING FOR CUSTOM PACKAGE
     public function postcustom(Request $request)
     {
         $additionals = $request->input('additionals');
@@ -200,8 +210,7 @@ class OrderController extends Controller
             $custom->additionals = $additionalsjson;
             $custom->fill($validatedDataCustom);
             $request->session()->put('custom', $custom);
-        };
-
+        }
 
         $validatedData = $request->validate([
             'paket_id' => 'required',
@@ -212,6 +221,7 @@ class OrderController extends Controller
             'pbqty' => 'required',
 
         ]);
+
         $totalprice = $request->input('totalprice');
 
         if (empty($request->session()->get('booking'))) {
@@ -224,9 +234,7 @@ class OrderController extends Controller
             $booking->fill($validatedData);
             $booking->totalprice = $totalprice;
             $request->session()->put('booking', $booking);
-        };
-
-
+        }
 
         return redirect('pricelist/order/details');
     }
