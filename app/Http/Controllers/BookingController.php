@@ -70,18 +70,6 @@ class BookingController extends Controller
         return view('pages.pricelist.engagement.index', compact('package', 'booking'));
     }
 
-    public function orderpackage(Request $request)
-    {
-        $booking = $request->session()->get('booking');
-        $printedphoto = printedphoto::all();
-        $photobook = photobook::all();
-        $package = Paket::query()->where('id', $booking->paket_id)->first();
-        $galeri = galeri::query()->where('id', $package->idgaleri)->first();
-
-
-        return view('pages.pricelist.order.order', compact('printedphoto', 'photobook', 'package', 'galeri'));
-    }
-
     public function orderfirststep(Request $request)
     {
         $validatedData = $request->validate([

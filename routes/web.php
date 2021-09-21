@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\trackingcontroller;
 use App\Http\Controllers\WeddingController;
 use Illuminate\Http\Request;
@@ -53,25 +54,25 @@ Route::get('/custom', [OrderController::class, 'custom'])->name('custom_package'
 Route::post('/postcustom', [OrderController::class, 'postcustom'])->name('post-custom');
 
 
-/* creating bookings & custom */
-Route::get('pricelist/order', [BookingController::class, 'orderpackage'])
+//CREATE BOOKINGS AND CUSTOM
+//1ST STEP
+Route::get('pricelist/order', [OrderController::class, 'orderpackage'])
     ->name('pricelist.orderpackage');
-
+//2ND STEP
 Route::post('pricelist/postorder', [OrderController::class, 'postCreateStep1']);
-
+//3RD STEP
 Route::get('pricelist/order/details', [OrderController::class, 'order'])
     ->name('pricelist.wedding.order');
-
+//4TH STEP
 Route::post('/pricelist/detail/order', [OrderController::class, 'kirim']);
-
+//5TH STEP
 Route::get('pricelist/order/checkout', [OrderController::class, 'checkout'])
     ->name('pricelist.order.checkout');
-
-Route::post('/pricelist/order/checkout/store', [OrderController::class, 'store']);
-
-
-/*-----------------------------------*/
-Route::get('/payment-confirmation', [OrderController::class, 'payment'])
+//6TH STEP
+Route::post('/pricelist/order/checkout/store', [OrderController::class, 'store'])
+    ->name('store-booking');
+//7TH STEP
+Route::get('/payment-confirmation/{id}', [OrderController::class, 'payment'])
     ->name('payment.confirmation');
 
 
@@ -94,3 +95,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/postpackage', [BookingController::class, 'index']);
 Route::post('storepackage', [BookingController::class, 'create']);
+
+//DUMMY PAYMENT ENDPOINT
+Route::put('/payment-confirmation/{id}', [PaymentController::class, 'updatePrice'])
+    ->name('update.price');

@@ -1,7 +1,7 @@
 @extends('layouts.guest.master')
 @section('content')
     <div class="container-fluid py-5" style="background-color: #FAFBFA">
-        <form action="/pricelist/order/checkout/store" method="post" id="form_discount">
+        <form action="{{ route('store-booking') }}" method="post" id="form_discount">
             {{ csrf_field() }}
             <div class="container">
                 <div class="row justify-content-between">

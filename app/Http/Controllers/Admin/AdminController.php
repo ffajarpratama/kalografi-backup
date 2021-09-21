@@ -25,17 +25,16 @@ class AdminController extends Controller
         $booking = Booking::query()->findOrFail($request->order_id);
         $status = status::query()->where('booking_id', $booking->id)->first();
         $package = Paket::all();
+
         return view('pages.admin.search-result', compact('booking', 'status', 'package'));
     }
 
     public function update(Request $request)
     {
         $bookingId = $request->bookingid;
-        $status = status::query()
-            ->where('booking_id', $bookingId)
-            ->first();
+        $status = status::query()->findOrFail($bookingId);
         $status->current_status = $request->status_value;
-        $status->save();
+        $status->update();
 
         return redirect()->back()->with('message', 'Booking Status Updated!');
     }
