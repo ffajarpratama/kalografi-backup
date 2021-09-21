@@ -43,17 +43,6 @@
 
                         <div class="row mb-3">
                             <div class="form-group row mb-3">
-                                <label for="bank" class="mb-1 text-secondary small">Bank</label>
-                                <div class="col">
-                                    <select class="form-control text-secondary small" name="bank" id="bank">
-                                        <option value="Wedding Photobook 20 cm x 30 cm">
-                                            Bank Mandiri - 098 198 2829 11 a.n Adhin Alifarchan
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
                                 <label for="bank" class="mb-1 text-secondary small">Payment Termination</label>
                                 <div class="col">
                                     <select class="form-control text-secondary small" name="payment_termination" id="payment_termination">
