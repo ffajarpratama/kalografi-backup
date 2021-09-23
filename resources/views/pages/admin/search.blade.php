@@ -17,10 +17,15 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <form action="{{ route('admin.search-result') }}" method="GET">
-                    <input type="text" name="order_id" class="form-control form-control-sm text-center" autocomplete="off">
-                    <button class="btn btn-kalografi semi-bold mt-3" type="submit" style="width: 100%;">
-                        Check Now!
-                    </button>
+                    <div class="row">
+                        <input type="text" name="order_id" class="form-control form-control-sm text-center" autocomplete="off">
+                    </div>
+
+                    <div class="row">
+                        <button class="btn btn-kalografi semi-bold mt-3 btn-block" type="submit">
+                            Check Now!
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

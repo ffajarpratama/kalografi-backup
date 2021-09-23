@@ -11,7 +11,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
 
-                @if($booking->isPaymentCompleted == false)
+                @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <strong>Payment Not Complete</strong>
                     </div>

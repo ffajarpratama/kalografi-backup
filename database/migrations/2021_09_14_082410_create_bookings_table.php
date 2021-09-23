@@ -17,6 +17,7 @@ class CreateBookingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('paket_id')->nullable()->index('bookings_paket_id_foreign');
             $table->bigInteger('custom_id')->nullable()->index('fk_custom_id');
+            $table->string('order_id')->nullable();
             $table->date('bookdate');
             $table->string('printedphoto');
             $table->integer('ppqty');
@@ -34,7 +35,8 @@ class CreateBookingsTable extends Migration
             $table->integer('totalprice');
             $table->integer('downPayment')->nullable();
             $table->integer('installment')->nullable();
-            $table->boolean('isPaymentCompleted')->default(0);
+            $table->enum('paymentStatus', ['CREATED', 'FULLY_PAID', 'DOWN_PAYMENT_PAID', 'INSTALLMENT_PAID'])->default('CREATED');
+            $table->string('paymentToken')->nullable();
             $table->timestamps();
         });
     }

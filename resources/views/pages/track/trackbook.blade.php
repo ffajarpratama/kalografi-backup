@@ -15,7 +15,7 @@
                         <h3 class="fs-1 fw-bold text-secondary">Your Post-Production Progress</h3>
                     </div>
 
-                    @if($booking->isPaymentCompleted == false)
+                    @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
                         <div class="alert alert-danger" style="max-width: 28rem;">
                             <strong>Please complete your payment to see your order's progress</strong>
                         </div>

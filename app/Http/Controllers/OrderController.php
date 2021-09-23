@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\MidtransService;
 use App\Models\additionals;
 use App\Models\galeri;
 use Illuminate\Http\Request;
@@ -12,9 +13,19 @@ use App\Models\printedphoto;
 use App\Models\photobook;
 use App\Models\status;
 use App\Models\custom;
+use Midtrans\Notification;
+use Midtrans\Snap;
+use Midtrans\Transaction;
 
 class OrderController extends Controller
 {
+    private $midtransService;
+
+    public function __construct(MidtransService $midtransService)
+    {
+        $this->midtransService = $midtransService;
+    }
+
     //FIRST STEP OF BOOKING
     //SHOW ORDER PACKAGE FORM
     //URL: /pricelist/order
@@ -156,22 +167,28 @@ class OrderController extends Controller
     {
         $totalPrice = (int)$request->totalprice;
         $downPayment = null;
+        $installment = null;
+        $paymentCode = 'ALL';
 
         if ($request->payment_termination == 2) {
             $totalPrice = (int)$request->totalprice;
             $downPayment = (int)$request->totalprice / 2;
-            $installment = (int)$request->totalprice / 2;
+            $installment = null;
+            $paymentCode = 'DP';
         }
 
         $booking = $request->session()->get('booking');
+        $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
+
         $custom = $request->session()->get('custom');
+
+        $booking->order_id = $order_id;
         $booking->payment_termination = $request->payment_termination;
         $booking->totalprice = $totalPrice;
         $booking->discount_id = $request->discount_id;
         $booking->downPayment = $downPayment;
         $booking->installment = $installment;
-        $booking->isPaymentCompleted = false;
-
+        $booking->paymentStatus = 'CREATED';
 
         if ($booking->paket_id == 0) {
             $custom->save();
@@ -179,12 +196,16 @@ class OrderController extends Controller
             $booking->custom_id = $custom->id;
         }
 
+        //CREATE NEW RECORD OF BOOKING FROM THE SESSION DATA
         $booking->save();
+
+        //CREATE PAYMENT TOKEN
+        $this->_generatePaymentToken($booking);
 
         Status::create([
             'booking_id' => $booking->id
         ]);
-
+        session()->forget('booking');
         return redirect()->route('payment.confirmation', $booking->id);
     }
 
@@ -193,10 +214,58 @@ class OrderController extends Controller
     //URL: /payment-confirmation
     public function payment($id)
     {
-        $bookingSession = Booking::query()->findOrFail($id);
-        return view('pages.pricelist.order.payment', compact('bookingSession'));
+        $booking = Booking::query()->findOrFail($id);
+
+        return view('pages.pricelist.order.payment', compact('booking'));
     }
 
+    //MIDTRANS GATEWAY TESTING
+    public function _generatePaymentToken($booking)
+    {
+        $this->midtransService->initPaymentGateway();
+
+        $grossAmount = $booking->totalprice;
+
+        if ($booking->payment_termination == 2) {
+            $grossAmount = $booking->downPayment;
+        }
+
+        $customerDetails = [
+            'first_name' => $booking->fullname,
+            'email' => $booking->email,
+            'phone' => $booking->phonenumber
+        ];
+
+        $params = [
+            'enable_payments' => Booking::PAYMENT_CHANNELS,
+            'transaction_details' => [
+                'order_id' => $booking->order_id,
+                'gross_amount' => $grossAmount
+            ],
+            'customer_details' => $customerDetails,
+            'expiry' => [
+                'start_time' => date('Y-m-d H:i:s T', strtotime($booking->created_at)),
+                'unit' => Booking::EXPIRY_UNIT,
+                'duration' => Booking::EXPIRY_DURATION
+            ]
+        ];
+
+        $snapToken = Snap::getSnapToken($params);
+
+        if ($snapToken) {
+            $booking->paymentToken = $snapToken;
+            $booking->save();
+        }
+
+        return $booking;
+    }
+
+    public function midTransTest($id)
+    {
+        $booking = Booking::query()->findOrFail($id);
+        $paymentToken = $this->_generatePaymentToken($booking);
+        dd($paymentToken);
+    }
 
     public function postpaket()
     {

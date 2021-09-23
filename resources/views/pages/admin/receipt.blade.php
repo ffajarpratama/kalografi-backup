@@ -163,7 +163,6 @@
                         <input type="hidden" id="grand_total" name="totalprice" value="{{ $booking->totalprice }}">
                         <input type="hidden" id="id_diskon" name="discount_id" value="">
                         <input type="hidden" name="booking_id" value="{{ $booking->id }}">
-
                     </div>
                 </div>
             </div>

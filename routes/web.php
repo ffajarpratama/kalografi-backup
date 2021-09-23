@@ -96,6 +96,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/postpackage', [BookingController::class, 'index']);
 Route::post('storepackage', [BookingController::class, 'create']);
 
-//DUMMY PAYMENT ENDPOINT
-Route::put('/payment-confirmation/{id}', [PaymentController::class, 'updatePrice'])
-    ->name('update.price');
+
+//MIDTRANS ENDPOINT
+Route::post('/payments/notification', [PaymentController::class, 'notification'])
+    ->name('payment.notification');
+
+Route::get('/payments/completed', [PaymentController::class, 'completed'])
+    ->name('payment.completed');
+
+Route::get('/payments/unfinished', [PaymentController::class, 'unfinished'])
+    ->name('payment.unfinished');
+
+Route::get('/payments/failed', [PaymentController::class, 'failed'])
+    ->name('payment.failed');

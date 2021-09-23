@@ -151,34 +151,36 @@
                 </div>
             </div>
 
-            @if($booking->payment_termination == 2 && $booking->isPaymentCompleted == false)
-                <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+            @if($booking->payment_termination == 2)
+                @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                    <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
-                <div class="row mt-4">
-                    <div class="col-md-6"></div>
+                    <div class="row mt-4">
+                        <div class="col-md-6"></div>
 
-                    <div class="col-md-6">
-                        <div class="row">
-                            <p class="semi-bold text-secondary text-end mb-0">Total</p>
-                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <p class="semi-bold text-secondary text-end mb-0">Total</p>
+                            </div>
 
-                        <div class="row">
-                            <p id="total" class="semi-bold fs-5 text-secondary mb-0 text-end">
-                                Rp. {{ number_format($booking->totalprice) }}
-                            </p>
-                        </div>
+                            <div class="row">
+                                <p id="total" class="semi-bold fs-5 text-secondary mb-0 text-end">
+                                    Rp. {{ number_format($booking->totalprice) }}
+                                </p>
+                            </div>
 
-                        <div class="row" style="font-size: 14px;">
-                            <p class="small text-secondary mb-0 text-end">
-                                @if($booking->downPayment)
-                                    2x Payment Left
-                                @else
-                                    1x Payment Left
-                                @endif
-                            </p>
+                            <div class="row" style="font-size: 14px;">
+                                <p class="small text-secondary mb-0 text-end">
+                                    @if($booking->paymentStatus === 'CREATED')
+                                        2x Payment Left
+                                    @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                                        1x Payment Left
+                                    @endif
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endif
 
             <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
@@ -190,7 +192,7 @@
 
                 <div class="col-md-6">
                     @if($booking->payment_termination == 2)
-                        @if($booking->downPayment && $booking->installment)
+                        @if($booking->paymentStatus === 'CREATED')
                             <div class="row">
                                 <p class="semi-bold text-secondary text-end mb-0">Down Payment</p>
                             </div>
@@ -200,7 +202,7 @@
                                     Rp. {{ number_format($booking->downPayment) }}
                                 </p>
                             </div>
-                        @elseif($booking->installment)
+                        @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
                             <div class="row">
                                 <p class="semi-bold text-secondary text-end mb-0">Installment</p>
                             </div>
@@ -239,19 +241,32 @@
                 </div>
             </div>
 
-            @if($booking->isPaymentCompleted == false)
+            @if($booking->paymentStatus === 'CREATED')
                 <div class="row">
-                    <form action="{{ route('update.price', $booking->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block">
-                                Continue to payment
-                            </button>
-                        </div>
-                    </form>
+                    <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block" id="pay-button">
+                        @if($booking->payment_termination === 1)
+                            Pay Now
+                        @elseif($booking->payment_termination === 2)
+                            Pay Down Payment
+                        @endif
+                    </button>
+                </div>
+            @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                <div class="row">
+                    <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block" id="pay-button">
+                        Pay Installment
+                    </button>
                 </div>
             @endif
         </div>
     </div>
 </div>
+
+{{--Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key"--}}
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('MIDTRANS_CLIENT_KEY') }}"></script>
+<script type="text/javascript">
+    document.getElementById('pay-button').onclick = function () {
+        // SnapToken acquired from previous step
+        snap.pay('{{ $booking->paymentToken }}');
+    }
+</script>
