@@ -260,13 +260,6 @@ class OrderController extends Controller
         return $booking;
     }
 
-    public function midTransTest($id)
-    {
-        $booking = Booking::query()->findOrFail($id);
-        $paymentToken = $this->_generatePaymentToken($booking);
-        dd($paymentToken);
-    }
-
     public function postpaket()
     {
         $data = Booking::all();

@@ -152,7 +152,7 @@
             </div>
 
             @if($booking->payment_termination == 2)
-                @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
                     <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
                     <div class="row mt-4">
@@ -171,9 +171,9 @@
 
                             <div class="row" style="font-size: 14px;">
                                 <p class="small text-secondary mb-0 text-end">
-                                    @if($booking->paymentStatus === 'CREATED')
+                                    @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING')
                                         2x Payment Left
-                                    @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                                    @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
                                         1x Payment Left
                                     @endif
                                 </p>
@@ -192,7 +192,7 @@
 
                 <div class="col-md-6">
                     @if($booking->payment_termination == 2)
-                        @if($booking->paymentStatus === 'CREATED')
+                        @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING')
                             <div class="row">
                                 <p class="semi-bold text-secondary text-end mb-0">Down Payment</p>
                             </div>
@@ -202,7 +202,7 @@
                                     Rp. {{ number_format($booking->downPayment) }}
                                 </p>
                             </div>
-                        @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                        @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID'|| $booking->paymentStatus === 'INSTALLMENT_PENDING')
                             <div class="row">
                                 <p class="semi-bold text-secondary text-end mb-0">Installment</p>
                             </div>
@@ -251,7 +251,19 @@
                         @endif
                     </button>
                 </div>
-            @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+            @elseif($booking->paymentStatus === 'FULL_PAYMENT_PENDING')
+                <div class="row">
+                    <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block" id="pay-button">
+                        Pay Now
+                    </button>
+                </div>
+            @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PENDING')
+                <div class="row">
+                    <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block" id="pay-button">
+                        Pay Down Payment
+                    </button>
+                </div>
+            @elseif($booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
                 <div class="row">
                     <button type="submit" class="btn btn-lg btn-kalografi semi-bold btn-block" id="pay-button">
                         Pay Installment

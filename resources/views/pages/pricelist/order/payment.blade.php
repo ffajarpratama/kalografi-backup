@@ -15,7 +15,7 @@
                         <img src="{{ asset('placeholders/Group 106.png') }}" alt="peeps" class="d-flex mx-auto">
                     </div>
 
-                    @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                    @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'FULL_PAYMENT_PENDING' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
                         <div class="row mb-3">
                             <div class="col">
                                 <p class="text-bold text-secondary fs-1">

@@ -74,29 +74,38 @@ class PaymentController extends Controller
             ->where('order_id', $transactionOrderID)
             ->firstOrFail();
 
-        //CHECK IF THE TRANSACTION STATUS IS SETTLEMENT, CAPTURE, OR COMPLETE
-        if ($transactionStatus == 'settlement' || $transactionStatus == 'capture' || $transactionStatus == 'success') {
-            //PAYMENT STATUS IS CREATED?
+        if ($transactionStatus === 'settlement' || $transactionStatus === 'capture' || $transactionStatus === 'success') {
             if ($booking->paymentStatus === 'CREATED') {
-                //PAYMENT IS FULL?
                 if ($booking->payment_termination == 1) {
-                    //SET PAYMENT STATUS TO FULLY_PAID
                     $booking->paymentStatus = 'FULLY_PAID';
-                    //PAYMENT IS 2X PAYMENT?
+
                 } elseif ($booking->payment_termination == 2) {
-                    //SET PAYMENT STATUS TO DOWN_PAYMENT_PAID
                     $booking->paymentStatus = 'DOWN_PAYMENT_PAID';
-                    //INSTALLMENT = TOTAL PRICE / 2 (down payment amount),
                     $booking->installment = $booking->downPayment;
-                    //SET DOWN PAYMENT TO NULL
                     $booking->downPayment = null;
                 }
-                //PAYMENT STATUS IS DOWN_PAYMENT_PAID?
-            } elseif ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
-                //SET PAYMENT STATUS TO INSTALLMENT_PAID
+            } elseif ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
+                $booking->paymentStatus = 'FULLY_PAID';
+
+            } elseif ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+                $booking->paymentStatus = 'DOWN_PAYMENT_PAID';
+                $booking->installment = $booking->downPayment;
+                $booking->downPayment = null;
+
+            } elseif ($booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING') {
                 $booking->paymentStatus = 'INSTALLMENT_PAID';
-                //SET INSTALLMENT TO NULL
                 $booking->installment = null;
+            }
+        } elseif ($transactionStatus === 'pending') {
+            if ($booking->paymentStatus === 'CREATED') {
+                if ($booking->payment_termination == 1) {
+                    $booking->paymentStatus = 'FULL_PAYMENT_PENDING';
+
+                } elseif ($booking->payment_termination == 2) {
+                    $booking->paymentStatus = 'DOWN_PAYMENT_PENDING';
+                }
+            } elseif ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
+                $booking->paymentStatus = 'INSTALLMENT_PENDING';
             }
         }
 
@@ -112,39 +121,30 @@ class PaymentController extends Controller
             ->where('order_id', $bookingOrderId)
             ->firstOrFail();
 
-        //PAYMENT STATUS IS CREATED?
-        if ($booking->paymentStatus === 'CREATED') {
-            //SET ALERT MESSAGE TO COMPLETE PAYMENT
+        if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
             $alertMessage = 'Please Complete Payment!';
 
-        //PAYMENT STATUS IS FULLY PAID?
         } else if ($booking->paymentStatus === 'FULLY_PAID') {
-            //SET ALERT MESSAGE TO PAYMENT COMPLETE
             $alertMessage = 'Payment Complete!';
 
-        //PAYMENT STATUS IS DOWN PAYMENT PAID?
+        } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+            $alertMessage = 'Please Complete Down Payment!';
+
         } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
-            //SET ALERT MESSAGE TO DOWN PAYMENT PAID
             $alertMessage = 'Down Payment Paid!';
-            //SET GROSS AMOUNT FOR INSTALLMENT PAYMENT
-            $grossAmount = $booking->installment;
-            //SET PAYMENT CODE FOR INSTALLMENT ORDER ID
             $paymentCode = 'INS';
-            //SET ORDER ID FOR INSTALLMENT TRANSACTION
             $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
-            //SET ORDER ID OF THE BOOKING TO THE NEW ORDER ID USED FOR INSTALLMENT PAYMENT
+            $grossAmount = $booking->installment;
             $booking->order_id = $order_id;
-
-            //INITIALIZE PAYMENT GATEWAY
-            $this->midtransService->initPaymentGateway();
-            //GENERATE SNAP TOKEN FOR INSTALLMENT PAYMENT
-            $this->_generatePaymentToken($booking, $grossAmount);
-
             $booking->update();
 
-        //PAYMENT STATUS IS INSTALLMENT PAID?
+            $this->midtransService->initPaymentGateway();
+            $this->_generatePaymentToken($booking, $grossAmount);
+
+        } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
+            $alertMessage = 'Please Complete Installment Payment!';
+
         } else if ($booking->paymentStatus === 'INSTALLMENT_PAID') {
-            //SET ALERT MESSAGE TO INSTALLMENT PAID, PAYMENT HAS BEEN COMPLETED
             $alertMessage = 'Installment Paid! Payment Complete!';
         }
 

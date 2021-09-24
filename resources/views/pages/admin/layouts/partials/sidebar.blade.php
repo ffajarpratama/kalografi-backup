@@ -25,22 +25,11 @@
             <span>Search Booking</span></a>
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Packages -->
     <div class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePackages"
-           aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link" href="{{ route('admin.search') }}">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Packages</span>
-        </a>
-        <div id="collapsePackages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                {{--<h6 class="collapse-header">Login Screens:</h6>--}}
-                <a class="collapse-item" href="#">Pre-Wedding</a>
-                <a class="collapse-item" href="#">Wedding</a>
-                <a class="collapse-item" href="#">Engagement</a>
-                <div class="collapse-divider"></div>
-            </div>
-        </div>
+            <span>Packages</span></a>
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->

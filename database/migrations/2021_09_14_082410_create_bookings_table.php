@@ -26,6 +26,7 @@ class CreateBookingsTable extends Migration
             $table->string('venue');
             $table->string('tone');
             $table->string('weddingstyle');
+//            $table->string('additionals')->nullable();
             $table->string('fullname');
             $table->string('email');
             $table->string('phonenumber');
@@ -35,7 +36,7 @@ class CreateBookingsTable extends Migration
             $table->integer('totalprice');
             $table->integer('downPayment')->nullable();
             $table->integer('installment')->nullable();
-            $table->enum('paymentStatus', ['CREATED', 'FULLY_PAID', 'DOWN_PAYMENT_PAID', 'INSTALLMENT_PAID'])->default('CREATED');
+            $table->enum('paymentStatus', ['CREATED', 'FULL_PAYMENT_PENDING', 'FULLY_PAID', 'DOWN_PAYMENT_PENDING', 'DOWN_PAYMENT_PAID', 'INSTALLMENT_PENDING', 'INSTALLMENT_PAID'])->default('CREATED');
             $table->string('paymentToken')->nullable();
             $table->timestamps();
         });
