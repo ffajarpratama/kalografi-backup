@@ -7,6 +7,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Midtrans\Notification;
 use Midtrans\Snap;
+use Midtrans\Transaction;
 
 class PaymentController extends Controller
 {
@@ -83,6 +84,7 @@ class PaymentController extends Controller
                     $booking->paymentStatus = 'DOWN_PAYMENT_PAID';
                     $booking->installment = $booking->downPayment;
                     $booking->downPayment = null;
+
                 }
             } elseif ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
                 $booking->paymentStatus = 'FULLY_PAID';
@@ -114,9 +116,9 @@ class PaymentController extends Controller
         return response('OK', 200);
     }
 
-    public function completed(Request $request)
+    public function snapFinish(Request $request)
     {
-        $bookingOrderId = $request->query('order_id');
+        $bookingOrderId = $request->order_id;
         $booking = Booking::query()
             ->where('order_id', $bookingOrderId)
             ->firstOrFail();
@@ -151,29 +153,131 @@ class PaymentController extends Controller
         return redirect('/search?order_id=' . $booking->id)->with('message', $alertMessage);
     }
 
-    public function unfinished(Request $request)
+    public function snapUnfinished(Request $request)
     {
-        $order_id = $request->query('order_id');
+        $bookingOrderId = $request->query('order_id');
+        $booking = Booking::query()
+            ->where('order_id', $bookingOrderId)
+            ->firstOrFail();
+
+        return redirect('/search?order_id=' . $booking->id)->with('message', 'Payment Not Complete!');
+    }
+
+    public function snapFailed(Request $request)
+    {
+        $bookingOrderId = $request->order_id;
+        $booking = Booking::query()
+            ->where('order_id', $bookingOrderId)
+            ->firstOrFail();
+
+        return redirect('/search?order_id=' . $booking->id)->with('message', 'We are having difficulties to process your payment. Please create your booking again!');
+    }
+
+    public function completed(Request $request)
+    {
+        $this->midtransService->initPaymentGateway();
+        if ($request->query('id')) {
+            $transaction = Transaction::status($request->query('id'));
+            $order_id = $transaction->order_id;
+            $transaction_status = $transaction->transaction_status;
+        } else {
+            $response = preg_replace('/\\\\/', '', $request->response);
+            $decoded_response = json_decode($response);
+            $order_id = $decoded_response->order_id;
+            $transaction_status = $decoded_response->transaction_status;
+        }
+
         $booking = Booking::query()
             ->where('order_id', $order_id)
             ->firstOrFail();
 
-        return response([
-            'message' => 'Payment Unfinished!',
-            'data' => $booking
-        ], 200);
+        if ($transaction_status === 'deny') {
+            $alertMessage = 'Something went wrong, please retry payment!';
+
+            if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
+                $paymentCode = 'ALL';
+                $grossAmount = $booking->totalprice;
+
+            } elseif ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+                $paymentCode = 'DP';
+                $grossAmount = $booking->downPayment;
+
+            } elseif ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
+                $paymentCode = 'INS';
+                $grossAmount = $booking->installment;
+            }
+
+            $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
+            $booking->order_id = $order_id;
+            $booking->update();
+
+            $this->_generatePaymentToken($booking, $grossAmount);
+        } else {
+            if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
+                $alertMessage = 'Please Complete Payment!';
+
+            } else if ($booking->paymentStatus === 'FULLY_PAID') {
+                $alertMessage = 'Payment Complete!';
+
+            } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+                $alertMessage = 'Please Complete Down Payment!';
+
+            } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
+                $alertMessage = 'Down Payment Paid!';
+                $paymentCode = 'INS';
+                $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
+                $grossAmount = $booking->installment;
+                $booking->order_id = $order_id;
+                $booking->update();
+
+                $this->_generatePaymentToken($booking, $grossAmount);
+
+            } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
+                $alertMessage = 'Please Complete Installment Payment!';
+
+            } else if ($booking->paymentStatus === 'INSTALLMENT_PAID') {
+                $alertMessage = 'Installment Paid! Payment Complete!';
+            }
+        }
+
+        return redirect('/search?order_id=' . $booking->id)->with('message', $alertMessage);
+    }
+
+    public function unfinished(Request $request)
+    {
+        $this->midtransService->initPaymentGateway();
+        if ($request->query('id')) {
+            $transaction = Transaction::status($request->query('id'));
+            $order_id = $transaction->order_id;
+        } else {
+            $response = preg_replace('/\\\\/', '', $request->response);
+            $decoded_response = json_decode($response);
+            $order_id = $decoded_response->order_id;
+        }
+
+        $booking = Booking::query()
+            ->where('order_id', $order_id)
+            ->firstOrFail();
+
+        return redirect('/search?order_id=' . $booking->id)->with('message', 'Payment Not Complete!');
     }
 
     public function failed(Request $request)
     {
-        $order_id = $request->query('order_id');
+        $this->midtransService->initPaymentGateway();
+        if ($request->query('id')) {
+            $transaction = Transaction::status($request->query('id'));
+            $order_id = $transaction->order_id;
+        } else {
+            $response = preg_replace('/\\\\/', '', $request->response);
+            $decoded_response = json_decode($response);
+            $order_id = $decoded_response->order_id;
+        }
+
         $booking = Booking::query()
             ->where('order_id', $order_id)
             ->firstOrFail();
 
-        return response([
-            'message' => 'Payment Failed!',
-            'data' => $booking
-        ], 200);
+        return redirect('/search?order_id=' . $booking->id)->with('message', 'We are having difficulties to process your payment. Please create your booking again!');
     }
 }

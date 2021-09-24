@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid py-5" style="background-color: #FAFBFA">
         <div class="container">
-            @if(session()->has('message'))
+            @if (session()->has('message'))
                 <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
                     <strong>{{ session('message') }}</strong>
                     <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -15,7 +15,7 @@
                         <h3 class="fs-1 fw-bold text-secondary">Your Post-Production Progress</h3>
                     </div>
 
-                    @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID')
+                    @if ($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'FULL_PAYMENT_PENDING' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
                         <div class="alert alert-danger" style="max-width: 28rem;">
                             <strong>Please complete your payment to see your order's progress</strong>
                         </div>
@@ -24,7 +24,8 @@
                             <div class="col-md-10">
                                 <div class="progress progress-striped active" style="height:8px; margin-top:5px ">
                                     <div class="progress-bar " id="progress_bar" role="progressbar" aria-valuenow="73"
-                                         aria-valuemin="0" aria-valuemax="100" style=" width: 75% ; background-color: #8F9C69">
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        style=" width: 75% ; background-color: #8F9C69">
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +37,7 @@
                         <div class="row mb-4">
                             <div class="col">
                                 <p class="mb-0 text-secondary">Current progress:
-                                    @if($status->current_status === 1)
+                                    @if ($status->current_status === 1)
                                         <strong>No Progress</strong>
                                     @elseif($status->current_status === 2)
                                         <strong>All Photos Uploaded</strong>

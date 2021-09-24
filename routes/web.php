@@ -101,11 +101,20 @@ Route::post('storepackage', [BookingController::class, 'create']);
 Route::post('/payments/notification', [PaymentController::class, 'notification'])
     ->name('payment.notification');
 
-Route::get('/payments/completed', [PaymentController::class, 'completed'])
+Route::post('/payments/completed', [PaymentController::class, 'completed'])
     ->name('payment.completed');
 
-Route::get('/payments/unfinished', [PaymentController::class, 'unfinished'])
+Route::post('/payments/unfinished', [PaymentController::class, 'unfinished'])
     ->name('payment.unfinished');
 
-Route::get('/payments/failed', [PaymentController::class, 'failed'])
+Route::post('/payments/failed', [PaymentController::class, 'failed'])
     ->name('payment.failed');
+
+Route::get('/payments/snap/finished', [PaymentController::class, 'snapFinish'])
+    ->name('payment.snap.finished');
+
+Route::get('/payments/snap/unfinished', [PaymentController::class, 'snapUnfinished'])
+    ->name('payment.snap.unfinished');
+
+Route::get('/payments/snap/failed', [PaymentController::class, 'snapFailed'])
+    ->name('payment.snap.failed');
