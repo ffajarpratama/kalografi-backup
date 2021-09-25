@@ -35,10 +35,8 @@ class OrderController extends Controller
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
         $package = Paket::query()->where('id', $booking->paket_id)->first();
-        $additionals = additionals::query()->whereIn('id', json_decode($package->additionals))->get();
         $galeri = galeri::query()->where('id', $package->idgaleri)->first();
-
-        return view('pages.pricelist.order.order', compact('printedphoto', 'photobook', 'package', 'galeri', 'additionals'));
+        return view('pages.pricelist.order.order', compact('printedphoto', 'photobook', 'package', 'galeri'));
     }
 
     //SECOND STEP OF BOOKING

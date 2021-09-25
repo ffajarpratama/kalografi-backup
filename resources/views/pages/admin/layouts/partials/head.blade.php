@@ -331,4 +331,17 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+
+    .form-check-input:checked {
+        background-color: #8F9C69 !important;
+        border-color: #8F9C69;
+    }
+
+    .form-check-input:checked:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+    }
+
+    .form-check-input:focus {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+    }
 </style>

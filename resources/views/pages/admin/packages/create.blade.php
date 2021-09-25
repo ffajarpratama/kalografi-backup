@@ -127,33 +127,6 @@
 
                     <div class="card shadow-sm mb-5">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-kalografi">Add Additional Services</h6>
-                        </div>
-
-                        <div class="card-body p-5">
-                            <div class="form-group row mb-3">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="mb-1 text-secondary">Additional Services</p>
-                                    </div>
-                                </div>
-
-                                <div class="row text-secondary">
-                                    @foreach ($additionals as $key => $name)
-                                        <div class="col-md-6">
-                                            <label class="container-checkbox">{{ $name }}
-                                                <input type="checkbox" id="additionals" name="additionals[]" value="{{ $key }}">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm mb-5">
-                        <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-kalografi">Add Photos</h6>
                         </div>
                         <div class="card-body p-4">

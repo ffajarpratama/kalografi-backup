@@ -30,6 +30,7 @@ class CreateBookingsTable extends Migration
             $table->string('email');
             $table->string('phonenumber');
             $table->string('address');
+            $table->string('additionals')->nullable();
             $table->unsignedBigInteger('discount_id')->nullable()->index('bookings_discount_id_foreign');
             $table->integer('payment_termination')->nullable();
             $table->integer('totalprice');
