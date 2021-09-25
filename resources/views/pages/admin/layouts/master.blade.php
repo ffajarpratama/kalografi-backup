@@ -46,6 +46,7 @@
     @csrf
 </form>
 
+@yield('script')
 @include('pages.admin.layouts.partials.script')
 </body>
 

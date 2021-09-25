@@ -26,7 +26,6 @@ class CreateBookingsTable extends Migration
             $table->string('venue');
             $table->string('tone');
             $table->string('weddingstyle');
-//            $table->string('additionals')->nullable();
             $table->string('fullname');
             $table->string('email');
             $table->string('phonenumber');

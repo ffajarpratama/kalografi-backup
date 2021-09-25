@@ -23,6 +23,7 @@ class CreatePaketsTable extends Migration
             $table->integer('videographers');
             $table->tinyInteger('flashdisk')->default(1);
             $table->string('edited');
+            $table->string('additionals')->nullable();
             $table->integer('price');
             $table->integer('idgaleri')->nullable()->index('FK_galeris');
             $table->timestamps();

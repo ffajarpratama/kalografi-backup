@@ -35,9 +35,10 @@ class OrderController extends Controller
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
         $package = Paket::query()->where('id', $booking->paket_id)->first();
+        $additionals = additionals::query()->whereIn('id', json_decode($package->additionals))->get();
         $galeri = galeri::query()->where('id', $package->idgaleri)->first();
 
-        return view('pages.pricelist.order.order', compact('printedphoto', 'photobook', 'package', 'galeri'));
+        return view('pages.pricelist.order.order', compact('printedphoto', 'photobook', 'package', 'galeri', 'additionals'));
     }
 
     //SECOND STEP OF BOOKING
@@ -219,7 +220,7 @@ class OrderController extends Controller
         return view('pages.pricelist.order.payment', compact('booking'));
     }
 
-    //MIDTRANS GATEWAY TESTING
+    //GENERATE MIDTRANS PAYMENT TOKEN
     public function _generatePaymentToken($booking)
     {
         $this->midtransService->initPaymentGateway();

@@ -12,8 +12,9 @@
                 @foreach ($package as $package)
                     @if ($package->kategori == 'Wedding Package')
                         <form action="/pricelist/post" method="post">
-                            {{ csrf_field() }}
-                            <div class="col">
+                            @csrf
+
+                            <div class="col mb-3">
                                 <div class="card border-0 shadow-sm" style="border-radius: 20px;">
                                     <img src="{{ asset('storage/assets/product/' . $package->galeris->image_one) }}"
                                         class="card-img-top" alt="..." style="border-radius: 15px; ">

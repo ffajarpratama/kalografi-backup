@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -89,6 +90,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/search', [AdminController::class, 'search'])->name('search');
     Route::get('/search-result', [AdminController::class, 'searchResult'])->name('search-result');
     Route::post('/update-status', [AdminController::class, 'update'])->name('update-status');
+
+    //ADMIN CRUD PACKAGE ROUTES
+    Route::resource('paket', PackageController::class)->except('show');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

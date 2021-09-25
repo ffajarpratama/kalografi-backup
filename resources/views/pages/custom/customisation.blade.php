@@ -157,9 +157,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <div class="container-fluid pb-5" style="background-color: #FAFBFA">

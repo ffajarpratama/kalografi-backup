@@ -27,7 +27,7 @@
 
     <!-- Nav Item - Packages -->
     <div class="nav-item">
-        <a class="nav-link" href="{{ route('admin.search') }}">
+        <a class="nav-link" href="{{ route('admin.paket.index') }}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Packages</span></a>
     </div>
