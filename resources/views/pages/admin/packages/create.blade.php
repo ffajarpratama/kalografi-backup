@@ -7,14 +7,6 @@
 
             <div class="row justify-content-center">
                 <div class="col-md-10">
-
-                    @if(session()->has('message'))
-                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                            <strong>{{ session('message') }}</strong>
-                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
                     <div class="card shadow-sm mb-5">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-kalografi">Add New Package</h6>

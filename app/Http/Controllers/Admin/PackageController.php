@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\additionals;
-use App\Models\custom;
 use App\Models\galeri;
 use App\Models\Paket;
 use Illuminate\Http\Request;
@@ -55,7 +53,7 @@ class PackageController extends Controller
         $paket->idgaleri = $galeri->id;
         $paket->save();
 
-        return redirect()->back()->with('message', 'Package Created!');
+        return redirect()->route('admin.paket.index')->with('danger', 'Package Added!');
     }
 
     public function edit(Paket $paket)
@@ -95,7 +93,7 @@ class PackageController extends Controller
         $paket->fill($validateData);
         $paket->update();
 
-        return redirect()->back()->with('message', 'Package Updated!');
+        return redirect()->route('admin.paket.index')->with('danger', 'Package Updated!');
     }
 
     public function destroy(Paket $paket)
