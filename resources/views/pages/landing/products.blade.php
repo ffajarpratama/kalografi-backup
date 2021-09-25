@@ -1,5 +1,5 @@
-<div class="container-fluid py-5" >
-    <div class="container" data-aos="fade-in">
+<div class="container-fluid py-5">
+    <div class="container" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
         <div class="row text-center mb-5">
             <h3 class="fs-1 my-5 semi-bold" style="color: #8F9C69; letter-spacing: -1px;">Our Products</h3>
         </div>
@@ -22,7 +22,8 @@
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                     </p>
                 </div>
-                <a href="{{ route('pricelist.wedding.index') }}" class="btn text-white btn-sm px-3" style="background-color: #8F9C69">
+                <a href="{{ route('pricelist.wedding.index') }}" class="btn text-white btn-sm px-3"
+                    style="background-color: #8F9C69">
                     Know More
                 </a>
             </div>
@@ -45,7 +46,8 @@
                         ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                     </p>
                 </div>
-                <a href="{{ route('pricelist.pre-wedding.index') }}" class="btn text-white btn-sm px-3" style="background-color: #8F9C69">
+                <a href="{{ route('pricelist.pre-wedding.index') }}" class="btn text-white btn-sm px-3"
+                    style="background-color: #8F9C69">
                     Know More
                 </a>
             </div>

@@ -17,35 +17,37 @@
                         </div>
 
                         <div class="row mb-4">
-                            <div class="col pe-0">
+                            <div class="col pe-0" data-aos="fade-right" data-aos-delay="500" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_mastercard@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col px-0">
+                            <div class="col px-0" data-aos="fade-right" data-aos-delay="450" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_visa@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col px-0">
+                            <div class="col px-0" data-aos="fade-right" data-aos-delay="400" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_bca@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col px-0">
+                            <div class="col px-0" data-aos="fade-right" data-aos-delay="350" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_mandiri@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col px-0">
+                            <div class="col px-0" data-aos="fade-right" data-aos-delay="300" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_permata@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col px-0">
+                            <div class="col px-0" data-aos="fade-right" data-aos-delay="250" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_bri@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col ps-0">
+                            <div class="col ps-0" data-aos="fade-right" data-aos-delay="200" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/ico_bni@2x 1.png') }}" alt="mastercard-icon">
                             </div>
-                            <div class="col-md-3"></div>
+
                         </div>
 
                         <div class="row mb-3">
                             <div class="form-group row mb-3">
                                 <label for="bank" class="mb-1 text-secondary small">Payment Termination</label>
-                                <div class="col">
-                                    <select class="form-control text-secondary small" name="payment_termination" id="payment_termination">
+                                <div class="col" data-aos="fade-right" data-aos-delay="100"
+                                    data-aos-duration="500">
+                                    <select class="form-control text-secondary small" name="payment_termination"
+                                        id="payment_termination">
                                         <option value="" selected disabled>--Choose One--</option>
                                         <option value="1">1x (Complete Payment)</option>
                                         <option value="2">2x (Down Payment & Complete Payment)</option>
@@ -55,20 +57,24 @@
 
                             <div class="form-group row mb-3">
                                 <label for="redeem_code" class="mb-1 text-secondary small">Redeem Code</label>
-                                <div class="col-md-8">
+                                <div class="col-md-8" data-aos="fade-right" data-aos-delay="100"
+                                    data-aos-duration="500">
                                     <select class="form-control text-secondary small" name="discount" id="redeem_code"
-                                            onchange="getSelectValue();">
+                                        onchange="getSelectValue();">
                                         <option value="100" selected disabled>--Choose One--</option>
                                         @foreach ($discount as $potongan)
-                                            <option value="{{ $potongan->id }}" data-bs-jumlah="{{ $potongan->jumlah }}">
+                                            <option value="{{ $potongan->id }}"
+                                                data-bs-jumlah="{{ $potongan->jumlah }}">
                                                 {{ strtoupper($potongan->nama) . ' -- ' . $potongan->jumlah . '%' }}
                                             </option>
                                         @endforeach
 
                                     </select>
                                 </div>
-                                <div class="col-md-4">
-                                    <button onclick="totalharga()" class="btn btn-kalografi semi-bold" style="width: 100%" type="button">
+                                <div class="col-md-4" data-aos="fade-right" data-aos-delay="100"
+                                    data-aos-duration="400">
+                                    <button onclick="totalharga()" class="btn btn-kalografi semi-bold" style="width: 100%"
+                                        type="button">
                                         Get Discount
                                     </button>
                                 </div>
@@ -140,7 +146,7 @@
             selectedId = document.forms['form_discount'].elements['discount'].options[document.forms[
                 'form_discount'].elements['discount'].selectedIndex].value;
 
-            if(selectedValue !== null) {
+            if (selectedValue !== null) {
                 document.getElementById('discountDiv').style.display = "";
                 document.getElementById('discountText').innerHTML = 'Discount ' + selectedValue + '%';
                 document.getElementById('discountPrice').innerHTML = '- Rp. ' + numberToRupiah(discountprice);

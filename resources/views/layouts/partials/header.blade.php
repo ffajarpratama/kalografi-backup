@@ -10,7 +10,7 @@
                         href="{{ route('landing') }}">Home</a>
                 </li>
                 <li class="nav-item fs-7 mx-3">
-                    <a class="nav-link" href="#">About Us</a>
+                    <a class="nav-link" href="{{ route('trackorder') }}">Track Your Order</a>
                 </li>
                 <li class="nav-item dropdown fs-7 mx-3">
                     <a class="nav-link dropdown-toggle {{ Route::is('portfolio') ? 'fw-bold' : '' }}" href="#"

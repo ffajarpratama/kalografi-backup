@@ -1,5 +1,6 @@
 <div class="col-md-5">
-    <div class="card px-5 py-3" style="border-radius: 20px;">
+    <div class="card px-5 py-3" style="border-radius: 20px;" data-aos="fade-left" data-aos-delay="100"
+        data-aos-duration="500">
         <div class="card-body">
             <div class="row text-center">
                 <h3 class="fs-2 fw-bold text-kalografi mb-3">
@@ -13,7 +14,7 @@
                 </h3>
             </div>
 
-            @if($booking->id !== null)
+            @if ($booking->id !== null)
                 <div class="row text-center">
                     <p class="semi-bold text-secondary fs-5">Order ID : <strong>{{ $booking->id }}</strong></p>
                 </div>
@@ -63,20 +64,20 @@
                 <p class="semi-bold text-secondary fs-5">Order Details</p>
                 <div class="col-md-4">
                     <button id="previewvenue" class="btn btn-sm semi-bold fs-7 btn-outline-kalografi" disabled
-                            style="width: 100%">
+                        style="width: 100%">
                         {{ $booking->venue }}
                     </button>
                 </div>
 
                 <div class="col-md-4">
                     <button id="previewtone" class="btn btn-sm semi-bold fs-7 btn-outline-kalografi" disabled
-                            style="width: 100%">
+                        style="width: 100%">
                         {{ $booking->tone }}
                     </button>
                 </div>
                 <div class="col-md-4">
                     <button id="previewweddingstyle" disabled class="btn btn-sm semi-bold fs-7 btn-outline-kalografi"
-                            style="width: 100%">
+                        style="width: 100%">
                         {{ $booking->weddingstyle }}
                     </button>
                 </div>
@@ -85,7 +86,7 @@
             <div class="row mb-3 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="package_qty"
-                           id="package_qty" value="1" aria-label="package_qty" style="width: 40px;" disabled>
+                        id="package_qty" value="1" aria-label="package_qty" style="width: 40px;" disabled>
                 </div>
 
                 <div class="col-md-6 px-0">
@@ -114,8 +115,8 @@
             <div class="row mb-3 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="print_quantity"
-                           id="print_quantity" value="{{ $booking->ppqty }}" aria-label="print_quantity"
-                           style="width: 40px;" disabled>
+                        id="print_quantity" value="{{ $booking->ppqty }}" aria-label="print_quantity"
+                        style="width: 40px;" disabled>
                 </div>
 
                 <div class="col-md-6 px-0">
@@ -134,8 +135,8 @@
             <div class="row mb-4 justify-content-between align-items-center" style="font-size: 14px">
                 <div class="col-md-2">
                     <input type="text" class="form-control form-control-sm text-center" name="photobook_quantity"
-                           id="photobook_quantity" value="{{ $booking->pbqty }}" aria-label="photobook_quantity"
-                           style="width: 40px;" disabled>
+                        id="photobook_quantity" value="{{ $booking->pbqty }}" aria-label="photobook_quantity"
+                        style="width: 40px;" disabled>
                 </div>
 
                 <div class="col-md-6 px-0">
@@ -151,7 +152,8 @@
                 </div>
             </div>
 
-            <div id="discountDiv" class="row mb-4 justify-content-between align-items-center" style="font-size: 14px; display: none;">
+            <div id="discountDiv" class="row mb-4 justify-content-between align-items-center"
+                style="font-size: 14px; display: none;">
                 <div class="col-md-2"></div>
                 <div class="col-md-6 px-0">
                     <p class="text-secondary mb-0" id="discountText"></p>

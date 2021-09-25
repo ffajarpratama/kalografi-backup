@@ -17,78 +17,77 @@
                         </div>
 
                         <div class="mb-5">
-                            <div class="row ps-4 mb-3">
+                            <div class="row ps-4 mb-3" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
                                 <p class="text-secondary px-0 mb-2 semi-bold">Venue</p>
                                 <div class="form-check form-check-inline mb-3 px-0">
 
                                     <input type="radio" class="btn-check" name="venue" id="outdoor" autocomplete="off"
-                                           onchange="changevenuevalue()" checked value="Outdoor">
+                                        onchange="changevenuevalue()" checked value="Outdoor">
                                     <label class="btn btn-check-kalografi mb-1" for="outdoor"
-                                           style="width: 9rem;">Outdoor</label>
+                                        style="width: 9rem;">Outdoor</label>
 
                                     <input type="radio" class="btn-check" name="venue" id="indoor" autocomplete="off"
-                                           onchange="changevenuevalue() " value="Indoor">
+                                        onchange="changevenuevalue() " value="Indoor">
                                     <label class="btn btn-check-kalografi mb-1" for="indoor"
-                                           style="width: 9rem;">Indoor</label>
+                                        style="width: 9rem;">Indoor</label>
 
                                 </div>
                             </div>
 
-                            <div class="row ps-4 mb-3">
+                            <div class="row ps-4 mb-3" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
                                 <p class="text-secondary px-0 mb-2 semi-bold">Tone</p>
 
                                 <div class="form-check form-check-inline px-0">
                                     <input type="radio" class="btn-check" name="tone" id="warm"
-                                           onchange="changetonevalue()" checked value="Warm">
-                                    <label class="btn btn-check-kalografi mb-1" for="warm"
-                                           style="width: 9rem;">Warm</label>
+                                        onchange="changetonevalue()" checked value="Warm">
+                                    <label class="btn btn-check-kalografi mb-1" for="warm" style="width: 9rem;">Warm</label>
 
                                     <input type="radio" class="btn-check" name="tone" id="moody"
-                                           onchange="changetonevalue()" value="Moody">
+                                        onchange="changetonevalue()" value="Moody">
                                     <label class="btn btn-check-kalografi mb-1" for="moody"
-                                           style="width: 9rem;">Moody</label>
+                                        style="width: 9rem;">Moody</label>
 
                                     <input type="radio" class="btn-check" name="tone" id="light&airy"
-                                           onchange="changetonevalue()" value="Light & Airy">
-                                    <label class="btn btn-check-kalografi mb-1" for="light&airy"
-                                           style="width: 9rem;">Light & Airy</label>
+                                        onchange="changetonevalue()" value="Light & Airy">
+                                    <label class="btn btn-check-kalografi mb-1" for="light&airy" style="width: 9rem;">Light
+                                        & Airy</label>
                                 </div>
 
                                 <div class="form-check form-check-inline mb-3 px-0">
                                     <input type="radio" class="btn-check" name="tone" id="film_look"
-                                           onchange="changetonevalue()" value="Film Look">
-                                    <label class="btn btn-check-kalografi mb-1" for="film_look"
-                                           style="width: 9rem;">Film Look</label>
+                                        onchange="changetonevalue()" value="Film Look">
+                                    <label class="btn btn-check-kalografi mb-1" for="film_look" style="width: 9rem;">Film
+                                        Look</label>
 
                                     <input type="radio" class="btn-check" name="tone" id="cinematic"
-                                           onchange="changetonevalue()" value="Cinematic">
+                                        onchange="changetonevalue()" value="Cinematic">
                                     <label class="btn btn-check-kalografi mb-1" for="cinematic"
-                                           style="width: 9rem;">Cinematic</label>
+                                        style="width: 9rem;">Cinematic</label>
 
                                     <input type="radio" class="btn-check" name="tone" id="monochrome"
-                                           onchange="changetonevalue()" value="Monochrome">
+                                        onchange="changetonevalue()" value="Monochrome">
                                     <label class="btn btn-check-kalografi mb-1" for="monochrome"
-                                           style="width: 9rem;">Monochrome</label>
+                                        style="width: 9rem;">Monochrome</label>
                                 </div>
                             </div>
 
-                            <div class="row ps-4">
+                            <div class="row ps-4" data-aos="fade-up" data-aos-delay="300" data-aos-duration="500">
                                 <p class="text-secondary px-0 mb-2 semi-bold">Wedding Style</p>
                                 <div class="form-check form-check-inline mb-3 px-0">
                                     <input type="radio" class="btn-check" name="weddingstyle" id="international"
-                                           checked onchange="changeweddingstylevalue()" value="International">
+                                        checked onchange="changeweddingstylevalue()" value="International">
                                     <label class="btn btn-check-kalografi mb-1" for="international"
-                                           style="width: 9rem;">International</label>
+                                        style="width: 9rem;">International</label>
 
                                     <input type="radio" class="btn-check" name="weddingstyle" id="traditional"
-                                           onchange="changeweddingstylevalue()" value="Traditional">
+                                        onchange="changeweddingstylevalue()" value="Traditional">
                                     <label class="btn btn-check-kalografi mb-1" for="traditional"
-                                           style="width: 9rem;">Traditional</label>
+                                        style="width: 9rem;">Traditional</label>
 
                                     <input type="radio" class="btn-check" name="weddingstyle" id="islamic"
-                                           onchange="changeweddingstylevalue()" value="Islamic">
+                                        onchange="changeweddingstylevalue()" value="Islamic">
                                     <label class="btn btn-check-kalografi mb-1" for="islamic"
-                                           style="width: 9rem;">Islamic</label>
+                                        style="width: 9rem;">Islamic</label>
                                 </div>
                             </div>
                         </div>
@@ -107,13 +106,12 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="phone_number" class="mb-1 text-secondary small">Phone Number</label>
-                                    <input type="text" class="form-control" name="phonenumber" id="phone_number"
-                                           required>
+                                    <input type="text" class="form-control" name="phonenumber" id="phone_number" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="customer_address" class="mb-1 text-secondary small">Address</label>
-                                    <textarea class="form-control" name="address" id="customer_address" rows="5"
-                                              required style="resize: none;"></textarea>
+                                    <textarea class="form-control" name="address" id="customer_address" rows="5" required
+                                        style="resize: none;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -130,21 +128,21 @@
 
     <script>
         var textinput = document.getElementById('fullname');
-        textinput.onkeyup = textinput.onkeypress = function () {
+        textinput.onkeyup = textinput.onkeypress = function() {
             document.getElementById('previewnama').innerHTML = this.value;
         }
     </script>
 
     <script>
         var textinput = document.getElementById('email');
-        textinput.onkeyup = textinput.onkeypress = function () {
+        textinput.onkeyup = textinput.onkeypress = function() {
             document.getElementById('previewemail').innerHTML = this.value;
         }
     </script>
 
     <script>
         var textinput = document.getElementById('phone_number');
-        textinput.onkeyup = textinput.onkeypress = function () {
+        textinput.onkeyup = textinput.onkeypress = function() {
             document.getElementById('previewnomor').innerHTML = this.value;
         }
     </script>

@@ -13,7 +13,7 @@
                     @if ($package->kategori == 'Engagement Package')
                         <form action="/pricelist/post" method="post">
                             {{ csrf_field() }}
-                            <div class="col">
+                            <div class="colmb-5">
                                 <div class="card border-0 shadow-sm" style="border-radius: 20px;">
                                     <img src="{{ asset('storage/assets/product/' . $package->galeris->image_one) }}"
                                         class="card-img-top" alt="..." style="border-radius: 15px; ">
@@ -73,5 +73,17 @@
 
         </div>
     </div>
+
+    <script>
+        for (let i = 0; i < cbs.length; i++) {
+            cbs[i].addEventListener('change', function() {
+                if (this.checked) {
+                    additionalPrice += parseInt(this.getAttribute('data-price'))
+                } else {
+                    additionalPrice -= parseInt(this.getAttribute('data-price'))
+                }
+            });
+        }
+    </script>
 
 @include(' layouts.partials.footer') @endsection
