@@ -7,14 +7,6 @@
 
             <div class="row justify-content-center">
                 <div class="col-md-10">
-
-                    @if(session()->has('message'))
-                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                            <strong>{{ session('message') }}</strong>
-                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
                     <div class="card shadow-sm mb-5">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-kalografi">Add New Package</h6>
@@ -120,33 +112,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm mb-5">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-kalografi">Add Additional Services</h6>
-                        </div>
-
-                        <div class="card-body p-5">
-                            <div class="form-group row mb-3">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="mb-1 text-secondary">Additional Services</p>
-                                    </div>
-                                </div>
-
-                                <div class="row text-secondary">
-                                    @foreach ($additionals as $key => $name)
-                                        <div class="col-md-6">
-                                            <label class="container-checkbox">{{ $name }}
-                                                <input type="checkbox" id="additionals" name="additionals[]" value="{{ $key }}">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    @endforeach
                                 </div>
                             </div>
                         </div>

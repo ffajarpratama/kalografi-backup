@@ -10,7 +10,13 @@
 
                     @if(session()->has('message'))
                         <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                            <strong>{{ session('message') }}</strong>
+                            <strong>{{ session('message') || session('danger') }}</strong>
+                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    @elseif(session()->has('danger'))
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>{{ session('danger') }}</strong>
                             <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                         </div>
@@ -187,37 +193,6 @@
 
                     <div class="card shadow-sm mb-5">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-kalografi">Update Additional Services</h6>
-                        </div>
-
-                        <div class="card-body p-5">
-                            <div class="form-group row mb-3">
-                                <div class="row mb-2">
-                                    <div class="col">
-                                        <p class="mb-1 text-secondary">Additional Services</p>
-                                    </div>
-                                </div>
-
-                                <div class="row text-secondary">
-                                    @foreach ($additionals as $additional)
-                                        <div class="col-md-6">
-                                            <label class="container-checkbox">{{ $additional->name }}
-                                                @foreach($additionalServices as $serviceId)
-                                                    <input type="checkbox" id="additionals" name="additionals[]"
-                                                           value="{{ $additional->id }}"
-                                                        {{ $additional->id === $serviceId ? 'checked' : '' }}>
-                                                    <span class="checkmark"></span>
-                                                @endforeach
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card shadow-sm mb-5">
-                        <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-kalografi">Update Photos</h6>
                         </div>
                         <div class="card-body p-4">
@@ -225,8 +200,9 @@
                                 <div class="col-md-3">
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <img src="{{ asset('storage/assets/product/' . $paket->galeris->image_one) }}"
-                                                 class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
+                                            <img
+                                                src="{{ asset('storage/assets/product/' . $paket->galeris->image_one) }}"
+                                                class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
                                             <label for="image_one" class="form-label">Choose 1st Photo</label>
                                             <input name="image_one" class="form-control form-control" id="image_one"
                                                    type="file">
@@ -237,8 +213,9 @@
                                 <div class="col-md-3">
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <img src="{{ asset('storage/assets/product/' . $paket->galeris->image_two) }}"
-                                                 class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
+                                            <img
+                                                src="{{ asset('storage/assets/product/' . $paket->galeris->image_two) }}"
+                                                class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
                                             <label for="image_two" class="form-label">Choose 2nd Photo</label>
                                             <input name="image_two" class="form-control form-control" id="image_two"
                                                    type="file">
@@ -249,8 +226,9 @@
                                 <div class="col-md-3">
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <img src="{{ asset('storage/assets/product/' . $paket->galeris->image_three) }}"
-                                                 class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
+                                            <img
+                                                src="{{ asset('storage/assets/product/' . $paket->galeris->image_three) }}"
+                                                class="rounded mb-2" alt="..." style="max-width: 200px; height: auto;">
                                             <label for="image_three" class="form-label">Choose 3rd Photo</label>
                                             <input name="image_three" class="form-control form-control" id="image_three"
                                                    type="file">
@@ -285,13 +263,9 @@
 
                                     <div class="row mb-3">
                                         <div class="col">
-                                            <form action="{{ route('admin.paket.destroy', $paket->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    Delete Package
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletePackageModal">
+                                                Delete Package
+                                            </button>
                                         </div>
 
                                         <div class="col text-right">
@@ -313,4 +287,31 @@
             </div>
         </form>
     </div>
+
+    <!-- Delete Modal-->
+    <div class="modal fade" id="deletePackageModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" >
+                <div class="modal-body">
+                    <p class="modal-title text-danger">
+                        Are you sure want to delete this package?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a class="btn btn-sm btn btn-danger" href="{{ route('admin.paket.destroy', $paket->id) }}"
+                       onclick="event.preventDefault(); document.getElementById('deletePackageForm').submit();">
+                        Yes, delete this package
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Delete Modal-->
+
+    <form id="deletePackageForm" action="{{ route('admin.paket.destroy', $paket->id) }}" method="POST" class="d-none">
+        @csrf
+        @method('DELETE')
+    </form>
+
 @endsection

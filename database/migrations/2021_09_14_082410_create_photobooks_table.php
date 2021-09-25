@@ -17,6 +17,7 @@ class CreatePhotobooksTable extends Migration
             $table->integer('id', true);
             $table->string('photobook');
             $table->integer('price');
+            $table->timestamps();
         });
     }
 

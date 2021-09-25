@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\PhotobookController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -93,6 +94,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     //ADMIN CRUD PACKAGE ROUTES
     Route::resource('paket', PackageController::class)->except('show');
+    //ADMIN CRUD PHOTOBOOK ROUTES
+    Route::resource('photobook', PhotobookController::class)->except('show');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
