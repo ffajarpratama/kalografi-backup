@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhotobookController;
 use App\Http\Controllers\Admin\PrintedPhotoController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\trackingcontroller;
@@ -103,6 +104,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('printedphoto', PrintedPhotoController::class)->except('show');
     //ADMIN ADDITIONAL FEATURES CRUD
     Route::resource('additionals', AdditionalController::class)->except('show');
+    //ADMIN DISCOUNT CRUD
+    Route::resource('discount', DiscountController::class)->except('show');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

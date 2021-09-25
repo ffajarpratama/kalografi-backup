@@ -52,7 +52,7 @@
 
     <!-- Nav Item - Discounts -->
     <div class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('admin.discount.index') }}">
             <i class="fas fa-fw fa-percent"></i>
             <span>Discounts</span></a>
     </div>
