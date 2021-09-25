@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdditionalController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PhotobookController;
@@ -62,7 +63,8 @@ Route::post('/postcustom', [OrderController::class, 'postcustom'])->name('post-c
 Route::get('pricelist/order', [OrderController::class, 'orderpackage'])
     ->name('pricelist.orderpackage');
 //2ND STEP
-Route::post('pricelist/postorder', [OrderController::class, 'postCreateStep1']);
+Route::post('pricelist/postorder', [OrderController::class, 'postCreateStep1'])
+    ->name('pricelist.post-order');
 //3RD STEP
 Route::get('pricelist/order/details', [OrderController::class, 'order'])
     ->name('pricelist.wedding.order');
@@ -99,6 +101,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('photobook', PhotobookController::class)->except('show');
     //ADMIN CRUD PRINTED PHOTO ROUTES
     Route::resource('printedphoto', PrintedPhotoController::class)->except('show');
+    //ADMIN ADDITIONAL FEATURES CRUD
+    Route::resource('additionals', AdditionalController::class)->except('show');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

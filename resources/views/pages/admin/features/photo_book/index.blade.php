@@ -59,13 +59,14 @@
                                         <td>{{ $photobook->photobook }}</td>
                                         <td>{{ 'Rp. ' . number_format($photobook->price) }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.photobook.edit', $photobook->id) }}"
-                                               class="btn btn-sm btn-outline-secondary">
-                                                Edit
+                                            <a href="{{ route('admin.photobook.edit', $photobook->id) }}" class="btn btn-sm btn-secondary btn-icon-split">
+                                                <div class="icon text-white-50">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </div>
+                                                <div class="text">
+                                                    Edit
+                                                </div>
                                             </a>
-                                            <button type="button" class="btn-sm btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deletePhotobookModal">
-                                                Delete
-                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -78,33 +79,6 @@
             <div class="col-md-1"></div>
         </div>
     </div>
-
-    <!-- Delete Modal-->
-    <div class="modal fade" id="deletePhotobookModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" >
-                <div class="modal-body">
-                    <p class="modal-title text-danger">
-                        Are you sure want to delete this photobook?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a class="btn btn-sm btn btn-danger" href="{{ route('admin.photobook.destroy', $photobook->id) }}"
-                       onclick="event.preventDefault(); document.getElementById('deletePhotobookForm').submit();">
-                        Yes, delete this photobook
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Delete Modal-->
-
-    <form id="deletePhotobookForm" action="{{ route('admin.photobook.destroy', $photobook->id) }}" method="POST" class="d-none">
-        @csrf
-        @method('DELETE')
-    </form>
-
 @endsection
 @section('script')
     <script>

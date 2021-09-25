@@ -42,27 +42,28 @@
                 </div>
 
                 <div class="col-md-5">
-                    <div class="card border-0 shadow-sm p-4" style="border-radius: 10px">
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <h3 class="fw-bold fs-2 text-secondary">
-                                    {{ $package->namapaket }}
-                                </h3>
-                            </div>
+                    <form action="{{ route('pricelist.post-order') }}" method="post">
+                        @csrf
+                        <div class="card border-0 shadow-sm p-4" style="border-radius: 10px">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <h3 class="fw-bold fs-2 text-secondary">
+                                        {{ $package->namapaket }}
+                                    </h3>
+                                </div>
 
-                            <div class="row mb-3">
-                                <h3 class="fw-bold fs-3 text-kalografi">
-                                    IDR {{ number_format($package->price) }}
-                                </h3>
-                            </div>
+                                <div class="row mb-3">
+                                    <h3 class="fw-bold fs-3 text-kalografi">
+                                        IDR {{ number_format($package->price) }}
+                                    </h3>
+                                </div>
 
-                            <form action="/pricelist/postorder" method="post">
-                                {{ csrf_field() }}
-                                <input type="text" name="paket_id" value="{{ $package->id }}" hidden>
+
+                                <input type="hidden" name="paket_id" value="{{ $package->id }}">
                                 <div class="form-group row mb-3">
                                     <div class="col-md-12">
-                                        <label for="printed_photo" class="mb-1 text-secondary small">Book Date</label>
-                                        <input type="date" class="form-control text-secondary small" name="bookdate"
+                                        <label for="bookdate" class="mb-1 text-secondary small">Book Date</label>
+                                        <input type="date" id="bookdate" class="form-control text-secondary small" name="bookdate"
                                             required>
                                     </div>
                                 </div>
@@ -73,16 +74,16 @@
                                         <select class="form-control text-secondary small" name="printedphoto"
                                             id="printed_photo">
 
-                                            @foreach ($printedphoto as $printedphoto)
-                                                <option value="{{ $printedphoto->id }}">
-                                                    {{ $printedphoto->printedphoto }}
+                                            @foreach ($printedphoto as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->printedphoto }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
 
                                     <div class="col-md-2 text-center">
-                                        <label for="print_quantity" class="mb-1 text-secondary small" name>Qty</label>
+                                        <label for="print_quantity" class="mb-1 text-secondary small">Qty</label>
                                         <input type="text" class="form-control" name="ppqty" id="print_quantity" value=""
                                             required>
                                     </div>
@@ -92,8 +93,8 @@
                                     <div class="col-md-10">
                                         <label for="photobook" class="mb-1 text-secondary small">Photobook</label>
                                         <select class="form-control text-secondary small" name="photobook" id="photobook">
-                                            @foreach ($photobook as $photobook)
-                                                <option value="{{ $photobook->id }}">{{ $photobook->photobook }}
+                                            @foreach ($photobook as $item)
+                                                <option value="{{ $item->id }}">{{ $item->photobook }}
                                                 </option>
                                             @endforeach
 
@@ -115,21 +116,21 @@
 
                                     </div>
                                 </div>
-
-                        </div>
-                    </div>
-                    <div class="row text-secondary mt-5">
-                        @foreach ($additionals as $additional)
-                            <div class="col-md-6">
-                                <label class="container-checkbox">{{ $additional->name }}
-                                    <input type="checkbox" id="additionals" name="additionals[]"
-                                        value="{{ $additional->id }}" data-price="{{ $additional->price }}">
-                                    <span class="checkmark"></span>
-                                </label>
                             </div>
-                        @endforeach
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="row text-secondary mt-5">
+                            @foreach ($additionals as $additional)
+                                <div class="col-md-6">
+                                    <label class="container-checkbox">{{ $additional->name }}
+                                        <input type="checkbox" id="additionals" name="additionals[]"
+                                            value="{{ $additional->id }}" data-price="{{ $additional->price }}">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
