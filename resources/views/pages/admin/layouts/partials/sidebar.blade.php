@@ -43,7 +43,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {{--<h6 class="collapse-header">Login Screens:</h6>--}}
                 <a class="collapse-item" href="{{ route('admin.photobook.index') }}">Photobook</a>
-                <a class="collapse-item" href="#">Printed Photo</a>
+                <a class="collapse-item" href="{{ route('admin.printedphoto.index') }}">Printed Photo</a>
                 <a class="collapse-item" href="#">Additional Services</a>
                 <div class="collapse-divider"></div>
             </div>

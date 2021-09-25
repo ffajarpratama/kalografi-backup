@@ -9,6 +9,8 @@ class printedphoto extends Model
 {
     use HasFactory;
     protected $table = 'printedphotos';
+    protected $guarded = [];
+
     public function booking()
     {
         return $this->hasMany(Booking::class, 'printedphoto');

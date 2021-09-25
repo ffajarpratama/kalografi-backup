@@ -17,6 +17,7 @@ class CreatePrintedphotosTable extends Migration
             $table->integer('id', true);
             $table->string('printedphoto');
             $table->integer('price');
+            $table->timestamps();
         });
     }
 
