@@ -115,8 +115,20 @@
 
                                     </div>
                                 </div>
-                            </form>
+
                         </div>
+                    </div>
+                    <div class="row text-secondary mt-5">
+                        @foreach ($additionals as $additional)
+                            <div class="col-md-6">
+                                <label class="container-checkbox">{{ $additional->name }}
+                                    <input type="checkbox" id="additionals" name="additionals[]"
+                                        value="{{ $additional->id }}" data-price="{{ $additional->price }}">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        @endforeach
+                        </form>
                     </div>
                 </div>
             </div>
@@ -172,18 +184,10 @@
                         </ul>
                     </div>
 
-                    <div class="row mb-3">
-                        <h3 class="fw-bold fs-2 text-secondary">Additional Services</h3>
-                    </div>
-                    <div class="row px-5 mb-3">
-                        <ul class="text-secondary">
-                            @foreach($additionals as $item)
-                                <li>{{ $item->name }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 

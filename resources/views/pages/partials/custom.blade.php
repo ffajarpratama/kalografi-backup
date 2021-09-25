@@ -1,5 +1,5 @@
 <div class="container-fluid py-5 mt-5" style="background-color: #FAFBFA">
-    <div class="container mt-5">
+    <div class="container mt-5" data-aos="fade-up" data-aos-delay="100" data-aos-duration="400">
         <div class="row text-center mb-3">
             <div class="col">
                 <h3 class="semi-bold mb-0" style="color: #8F9C69; letter-spacing: -1px; font-size:48px">

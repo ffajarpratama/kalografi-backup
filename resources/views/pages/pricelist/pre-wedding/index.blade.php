@@ -15,7 +15,8 @@
 
                         <form action="/pricelist/post" method="post">
                             {{ csrf_field() }}
-                            <div class="col">
+                            <div class="col mb-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}"
+                                data-aos-duration="800">
                                 <div class="card border-0 shadow-sm" style="border-radius: 20px;">
                                     <img src="{{ asset('storage/assets/product/' . $package->galeris->image_one) }}"
                                         class="card-img-top" alt="..." style="border-radius: 15px; ">

@@ -1,5 +1,5 @@
 <div class="container-fluid py-5" style="background-color: #FFFFFF">
-    <div class="row text-center justify-content-center">
+    <div class="row text-center justify-content-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
         <h3 class="semi-bold fs-1 mb-3" style="color: #8F9C69; letter-spacing: -1px;">All Documentation</h3>
     </div>
     <div class="row">
@@ -7,7 +7,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-4 mb-5 mx-4">
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/8.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">
@@ -52,7 +52,7 @@
                 </div>
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="150" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/KALO5721.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">
@@ -97,7 +97,7 @@
                 </div>
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/10.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">
@@ -142,7 +142,7 @@
                 </div>
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="250" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/4.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">
@@ -187,7 +187,7 @@
                 </div>
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="300" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/29.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">
@@ -232,7 +232,7 @@
                 </div>
 
 
-                <div class="col">
+                <div class="col" data-aos="fade-up" data-aos-delay="350" data-aos-duration="500">
                     <div class="card border-0">
                         <img src="{{ asset('placeholders/30.jpg') }}" class="rounded" alt="...">
                         <div class="card-body" style="background-color: #FFFFFF">

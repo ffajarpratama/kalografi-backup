@@ -1,5 +1,6 @@
 <div class="container-fluid py-5" style="background-color: #FAFBFA">
-    <div class="row text-center justify-content-center">
+    <div class="row text-center justify-content-center" data-aos="fade-down" data-aos-delay="100"
+        data-aos-duration="500">
         <h3 class="semi-bold fs-1 mb-3" style="color: #8F9C69; letter-spacing: -1px;">Featured Documentation</h3>
 
         <ul class="list-inline">
@@ -26,7 +27,7 @@
                 <div class="carousel-item active">
                     <div class="container">
                         <div class="row row-cols-1 row-cols-md-3 g-4 mb-5 mx-4">
-                            <div class="col">
+                            <div class="col" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
                                 <div class="card border-0">
                                     <img src="{{ asset('placeholders/3.jpg') }}" class="rounded" alt="...">
                                     <div class="card-body" style="background-color: #FAFBFA">
@@ -71,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
                                 <div class="card border-0">
                                     <img src="{{ asset('placeholders/5.jpg') }}" class="rounded" alt="...">
                                     <div class="card-body" style="background-color: #FAFBFA">
@@ -116,7 +117,7 @@
                                 </div>
                             </div>
 
-                            <div class="col">
+                            <div class="col" data-aos="fade-up" data-aos-delay="300" data-aos-duration="500">
                                 <div class="card border-0">
                                     <img src="{{ asset('placeholders/2.jpg') }}" class="rounded" alt="...">
                                     <div class="card-body" style="background-color: #FAFBFA">

@@ -5,11 +5,11 @@
 
         <div class="container">
             <div class="row justify-content-evenly">
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100" data-aos-duration="500">
                     <div id="mahawiraCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#mahawiraCarousel" data-bs-slide-to="0" class="active"
-                                aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#mahawiraCarousel" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#mahawiraCarousel" data-bs-slide-to="1"
                                 aria-label="Slide 2"></button>
                             <button type="button" data-bs-target="#mahawiraCarousel" data-bs-slide-to="2"
@@ -43,7 +43,7 @@
                 </div>
 
 
-                <div class="col-md-5">
+                <div class="col-md-5" data-aos="fade-left" data-aos-delay="0" data-aos-duration="500">
                     <div class="row mb-2">
                         <p class="fs-7">17 June 2021</p>
                         <h4 class="fw-bold fs-4 text-secondary">
@@ -89,28 +89,28 @@
             <div class="container" data-aos="fade-in" data-aos-delay="125">
                 <div class="row mb-5">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/1.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="150" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/2.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="200" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/3.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="250" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/4.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
@@ -118,34 +118,34 @@
                         </div>
 
                         <div class="col">
-                            <div class="card border-0">
+                            <div class="card border-0" data-aos="fade-up" data-aos-delay="300" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/5.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
                         <div class="col">
-                            <div class="card border-0">
+                            <div class="card border-0" data-aos="fade-up" data-aos-delay="350" data-aos-duration="500">
                                 <img src="{{ asset('placeholders/6.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="400" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/7.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="450" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/8.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" data-aos="fade-up" data-aos-delay="500" data-aos-duration="500">
                             <div class="card border-0">
                                 <img src="{{ asset('placeholders/9.jpg') }}" class="card-img-top" alt="..."
                                     style="border-radius: 10px">
@@ -155,8 +155,8 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-
-        @include('layouts.partials.footer')
-    @endsection
+    @include('layouts.partials.footer')
+@endsection

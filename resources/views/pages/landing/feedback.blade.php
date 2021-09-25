@@ -1,5 +1,5 @@
 <div class="container-fluid py-5" style="background-color: #FAFBFA">
-    <div class="container" data-aos="fade-in">
+    <div class="container" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
         <div class="row">
             <div class="col-md-4 offset-md-4 text-center">
                 <div style="color: #8F9C69; letter-spacing: -1px;">
@@ -14,8 +14,8 @@
             <div class="col-md-6 offset-md-3">
                 <div id="feedbackCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#feedbackCarousel" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#feedbackCarousel" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#feedbackCarousel" data-bs-slide-to="1"
                             aria-label="Slide 2"></button>
                         <button type="button" data-bs-target="#feedbackCarousel" data-bs-slide-to="2"

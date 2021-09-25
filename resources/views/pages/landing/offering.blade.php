@@ -1,4 +1,4 @@
-<div class="container-fluid" data-aos="fade-in">
+<div class="container-fluid" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
     <div class="row justify-content-center">
         <div class="card px-0 border-0">
             <img src="{{ asset('placeholders/subag.jpg') }}" alt="yeet" class="card-img">

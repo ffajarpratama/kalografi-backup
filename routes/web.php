@@ -78,7 +78,7 @@ Route::get('/payment-confirmation/{id}', [OrderController::class, 'payment'])
 
 
 /* searching */
-Route::get('trackingorder', [trackingcontroller::class, 'index']);
+Route::get('trackingorder', [trackingcontroller::class, 'index'])->name('trackorder');
 Route::get('search', [trackingcontroller::class, 'post'])->name('requestorder');
 
 //ADMIN ROUTES
