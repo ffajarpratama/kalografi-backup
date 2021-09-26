@@ -10,4 +10,9 @@ class custom extends Model
     use HasFactory;
     protected $guarded = [];
     protected $table = 'customs';
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'custom_id');
+    }
 }

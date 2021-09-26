@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+
     protected $table = 'bookings';
     protected $guarded = [];
 
@@ -43,18 +44,27 @@ class Booking extends Model
     {
         return $this->belongsTo(Paket::class, 'paket_id');
     }
+
+    public function custom()
+    {
+        return $this->belongsTo(custom::class, 'custom_id');
+    }
+
     public function discount()
     {
-        return $this->hasOne(discount::class);
+        return $this->belongsTo(discount::class, 'discount_id');
     }
+
     public function printedphotos()
     {
-        return $this->belongsTo(printedphoto::class, 'printedphoto');
+        return $this->belongsTo(printedphoto::class, 'printedphoto_id');
     }
+
     public function photobooks()
     {
-        return $this->belongsTo(photobook::class, 'photobook');
+        return $this->belongsTo(photobook::class, 'photobook_id');
     }
+
     public function status()
     {
         return $this->hasMany(status::class, 'booking_id');

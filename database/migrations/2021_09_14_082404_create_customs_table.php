@@ -14,13 +14,14 @@ class CreateCustomsTable extends Migration
     public function up()
     {
         Schema::create('customs', function (Blueprint $table) {
-            $table->bigInteger('id', true);
-            $table->integer('photographer');
-            $table->integer('videographer');
-            $table->string('workhours');
-            $table->string('additionals')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->id();
+
+            $table->integer('photographer')->nullable();
+            $table->integer('videographer')->nullable();
+            $table->string('workhours')->nullable();
+            $table->integer('price')->nullable();
+
+            $table->timestamps();
         });
     }
 

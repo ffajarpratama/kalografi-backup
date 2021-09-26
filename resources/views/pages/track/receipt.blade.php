@@ -1,8 +1,8 @@
 <div class="col-md-5">
-    <div class="card px-5 py-3" style="border-radius: 20px;">
+    <div class="card px-5 py-3" style="border-radius: 20px;" data-aos="fade-left" data-aos-delay="100" data-aos-duration="500">
         <div class="card-body">
             <div class="row text-center">
-                <h3 class="fs-2 fw-bold text-kalografi mb-3">
+                <h3 class="fs-3 fw-bold text-kalografi mb-3">
                     @if ($booking->paket_id == 0)
                         Custom Package
                     @else
@@ -13,9 +13,9 @@
                 </h3>
             </div>
 
-            @if($booking->id !== null)
+            @if ($booking->id !== null)
                 <div class="row text-center">
-                    <p class="semi-bold text-secondary fs-5">Order ID : <strong>{{ $booking->id }}</strong></p>
+                    <p class="text-secondary fs-6">Order ID : <strong>{{ $booking->id }}</strong></p>
                 </div>
             @endif
 
@@ -27,39 +27,40 @@
 
             <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
-            <div class="row mt-2">
+            <div class="row" style="font-size: 14px">
                 <p class="semi-bold text-secondary fs-5">Customer Details</p>
+
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="text-secondary">Name</p>
+                        <p class="text-secondary mb-2">Name</p>
                     </div>
-                    <div class="col-md-6">
-                        <p class="text-secondary" id="previewnama">{{ $booking->fullname }}</p>
+                    <div class="col-md-6 pe-0">
+                        <p class="text-secondary mb-2" id="previewnama">{{ $booking->fullname }}</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="text-secondary">Email</p>
+                        <p class="text-secondary mb-2">Email</p>
                     </div>
-                    <div class="col-md-6">
-                        <p class="text-secondary" id="previewemail">{{ $booking->email }}</p>
+                    <div class="col-md-6 pe-0">
+                        <p class="text-secondary mb-2" id="previewemail">{{ $booking->email }}</p>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="text-secondary">Phone Number</p>
+                        <p class="text-secondary mb-2">Phone Number</p>
                     </div>
-                    <div class="col-md-6">
-                        <p class="text-secondary" id="previewnomor">{{ $booking->phonenumber }}</p>
+                    <div class="col-md-6 pe-0">
+                        <p class="text-secondary mb-2" id="previewnomor">{{ $booking->phonenumber }}</p>
                     </div>
                 </div>
             </div>
 
             <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
-            <div class="row mt-2 text-center mb-4 justify-content-center">
+            <div class="row mt-2 text-center mb-4 justify-content-center" style="font-size: 14px">
                 <p class="semi-bold text-secondary fs-5">Order Details</p>
                 <div class="col-md-4">
                     <button id="previewvenue" class="btn btn-sm semi-bold fs-7 btn-outline-kalografi" disabled
@@ -102,8 +103,7 @@
                 <div class="col-md-4">
                     <p id="pricepackage" class="semi-bold text-secondary mb-0 text-end">
                         @if ($booking->paket_id == 0)
-                            Rp.
-                            {{ number_format($booking->totalprice - ($booking->printedphotos->price * $booking->ppqty + $booking->photobooks->price * $booking->pbqty)) }}
+                            Rp. {{ number_format($booking->custom->price) }}
                         @else
                             Rp. {{ number_format($booking->pakets->price) }}
                         @endif
@@ -151,9 +151,54 @@
                 </div>
             </div>
 
+            <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+
+            @if($additionals)
+                <div class="row mt-2 text-center justify-content-center">
+                    <p class="semi-bold text-secondary fs-5">Additional Services</p>
+                </div>
+
+                @foreach($additionals as $item)
+                    <div class="row mb-3 justify-content-between align-items-center" style="font-size: 14px">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm text-center" name="photobook_quantity"
+                                   id="photobook_quantity" value="1" aria-label="photobook_quantity"
+                                   style="width: 40px;" disabled>
+                        </div>
+
+                        <div class="col-md-6 px-0">
+                            <p class="text-secondary mb-0">
+                                {{ $item->name }}
+                            </p>
+                        </div>
+
+                        <div class="col-md-4">
+                            <p id="priceprintedphoto" class="semi-bold text-secondary mb-0 text-end">
+                                Rp. {{ number_format($item->price) }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+            @endif
+
+            <div class="row mb-2 justify-content-between align-items-center" style="font-size: 14px;">
+                <div class="col-md-6 px-0">
+                    <p class="text-secondary mb-0 ps-3" id="discountText">
+                        {{ 'Discount ' . $booking->discount->jumlah . ' %' }}
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="semi-bold text-secondary mb-0 text-end" id="discountPrice">
+                        {{ '-Rp. ' . number_format(($booking->totalprice * (100 / (100 - $booking->discount->jumlah)) * $booking->discount->jumlah) / 100) }}
+                    </p>
+                </div>
+            </div>
+
+            <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
+
             @if($booking->payment_termination == 2)
                 @if($booking->paymentStatus === 'CREATED' || $booking->paymentStatus === 'DOWN_PAYMENT_PENDING' || $booking->paymentStatus === 'DOWN_PAYMENT_PAID' || $booking->paymentStatus === 'INSTALLMENT_PENDING')
-                    <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
                     <div class="row mt-4">
                         <div class="col-md-6"></div>
@@ -181,9 +226,8 @@
                         </div>
                     </div>
                 @endif
+                <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
             @endif
-
-            <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
 
             <div class="row mb-4 mt-4">
                 <div class="col-md-6">
@@ -234,10 +278,6 @@
                             </p>
                         </div>
                     @endif
-
-                    <input type="hidden" id="grand_total" name="totalprice" value="{{ $booking->totalprice }}">
-                    <input type="hidden" id="id_diskon" name="discount_id" value="">
-                    <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                 </div>
             </div>
 

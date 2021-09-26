@@ -11,4 +11,9 @@ class discount extends Model
 
     protected $table = 'discounts';
     protected $guarded = [];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'discount_id');
+    }
 }

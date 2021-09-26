@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToStatusTable extends Migration
+class CreatePhotobooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class AddForeignKeysToStatusTable extends Migration
      */
     public function up()
     {
-        Schema::table('status', function (Blueprint $table) {
-            $table->foreign('booking_id', 'booking_id')->references('id')->on('bookings');
+        Schema::create('photobooks', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('photobook')->nullable();
+            $table->integer('price')->nullable();
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class AddForeignKeysToStatusTable extends Migration
      */
     public function down()
     {
-        Schema::table('status', function (Blueprint $table) {
-            $table->dropForeign('booking_id');
-        });
+        Schema::dropIfExists('photobooks');
     }
 }

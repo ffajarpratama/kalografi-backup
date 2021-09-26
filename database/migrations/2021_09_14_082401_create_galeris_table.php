@@ -14,12 +14,13 @@ class CreateGalerisTable extends Migration
     public function up()
     {
         Schema::create('galeris', function (Blueprint $table) {
-            $table->integer('id', true);
+            $table->id();
+
             $table->string('image_one');
             $table->string('image_two');
             $table->string('image_three');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+
+            $table->timestamps();
         });
     }
 

@@ -71,7 +71,7 @@
                                     <div class="col-md-10">
                                         <label for="printed_photo" class="mb-1 text-secondary small">Printed
                                             Photo</label>
-                                        <select class="form-control text-secondary small" name="printedphoto"
+                                        <select class="form-control text-secondary small" name="printedphoto_id"
                                             id="printed_photo">
 
                                             @foreach ($printedphoto as $item)
@@ -92,7 +92,7 @@
                                 <div class="form-group row mb-4">
                                     <div class="col-md-10">
                                         <label for="photobook" class="mb-1 text-secondary small">Photobook</label>
-                                        <select class="form-control text-secondary small" name="photobook" id="photobook">
+                                        <select class="form-control text-secondary small" name="photobook_id" id="photobook">
                                             @foreach ($photobook as $item)
                                                 <option value="{{ $item->id }}">{{ $item->photobook }}
                                                 </option>

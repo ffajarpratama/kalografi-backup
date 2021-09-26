@@ -13,6 +13,6 @@ class photobook extends Model
 
     public function booking()
     {
-        return $this->hasMany(Booking::class, 'photobook');
+        return $this->hasMany(Booking::class, 'photobook_id');
     }
 }

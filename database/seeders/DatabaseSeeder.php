@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GallerySeeder::class,
+            AdditionalSeeder::class,
             PackageSeeder::class,
-            PhotobookSeeder::class,
-            PrintedPhotoSeeder::class,
             DiscountSeeder::class,
-            AdditionalSeeder::class
+            PhotobookSeeder::class,
+            PrintedPhotoSeeder::class
         ]);
     }
 }

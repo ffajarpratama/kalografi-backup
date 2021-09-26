@@ -14,17 +14,20 @@ class CreatePaketsTable extends Migration
     public function up()
     {
         Schema::create('pakets', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('namapaket');
-            $table->string('kategori');
-            $table->integer('workhours');
-            $table->string('day');
-            $table->integer('photographers');
-            $table->integer('videographers');
+            $table->id();
+
+            $table->foreignId('idgaleri')->nullable()->constrained('galeris')->onDelete('CASCADE');
+
+            $table->string('namapaket')->nullable();
+            $table->string('kategori')->nullable();
+            $table->integer('workhours')->nullable();
+            $table->string('day')->nullable();
+            $table->integer('photographers')->nullable();
+            $table->integer('videographers')->nullable();
             $table->tinyInteger('flashdisk')->default(1);
-            $table->string('edited');
-            $table->integer('price');
-            $table->integer('idgaleri')->nullable()->index('FK_galeris');
+            $table->string('edited')->nullable();
+            $table->integer('price')->nullable();
+
             $table->timestamps();
         });
     }
