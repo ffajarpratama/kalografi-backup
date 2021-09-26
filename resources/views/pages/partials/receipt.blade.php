@@ -200,7 +200,6 @@
                         <p id="total" class="semi-bold fs-5 text-secondary mb-0 text-end">
                             Rp. {{ number_format($booking->totalprice) }}
                         </p>
-                        <input type="hidden" id="grand_total" name="totalprice" value="{{ $booking->totalprice }}">
                         <input type="hidden" id="id_diskon" name="discount_id" value="">
                         <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                     </div>

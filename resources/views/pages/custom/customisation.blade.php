@@ -32,7 +32,7 @@
                                     <div class="row mb-4">
                                         <div class="col">
                                             <label class="mb-1 text-secondary ">Photographer</label>
-                                            <select class="form-control text-secondary small" name="photographer"
+                                            <select class="form-control text-secondary small" name="photographers"
                                                 id="photographer-price" style="height: 70%">
                                                 <option value="1" data-bs-harga-photo="500000">
                                                     1 Photographer
@@ -50,7 +50,7 @@
                                     <div class="row mb-4">
                                         <div class="col">
                                             <label class="mb-1 text-secondary ">Videographer</label>
-                                            <select class="form-control text-secondary small" name="videographer"
+                                            <select class="form-control text-secondary small" name="videographers"
                                                 id="printed_photo" style="height: 70%">
                                                 <option value="1" data-bs-harga-video="1500000">
                                                     1 Videographer
@@ -67,9 +67,9 @@
                                             <label class="mb-1 text-secondary ">Work Hours</label>
                                             <select class="form-control text-secondary small" name="workhours"
                                                 id="workhours" style="height: 70%">
-                                                <option value="6" data-bs-workhoursprice="0">6 Hours</option>
-                                                <option value="8" data-bs-workhoursprice="500000">8 Hours</option>
-                                                <option value="12" data-bs-workhoursprice="1000000">12 Hours
+                                                <option value="1" data-bs-workhoursprice="0">6 Hours</option>
+                                                <option value="2" data-bs-workhoursprice="500000">8 Hours</option>
+                                                <option value="3" data-bs-workhoursprice="1000000">12 Hours
                                                 </option>
                                             </select>
                                         </div>
@@ -220,10 +220,10 @@
         }
 
         function calculate() {
-            const photographerSelectedId = document.forms['total_form'].elements['photographer'].options[document.forms[
-                'total_form'].elements['photographer'].selectedIndex].getAttribute('data-bs-harga-photo');
-            const videographerSelectedId = document.forms['total_form'].elements['videographer'].options[document.forms[
-                'total_form'].elements['videographer'].selectedIndex].getAttribute('data-bs-harga-video');
+            const photographerSelectedId = document.forms['total_form'].elements['photographers'].options[document.forms[
+                'total_form'].elements['photographers'].selectedIndex].getAttribute('data-bs-harga-photo');
+            const videographerSelectedId = document.forms['total_form'].elements['videographers'].options[document.forms[
+                'total_form'].elements['videographers'].selectedIndex].getAttribute('data-bs-harga-video');
             const printedPhotoSelectedId = document.forms['total_form'].elements['printedphoto'].options[document.forms[
                 'total_form'].elements['printedphoto'].selectedIndex].getAttribute('data-bs-harga-pp');
             const printedPhotoQty = document.getElementById("print_quantity").value;

@@ -13,6 +13,9 @@ use App\Models\printedphoto;
 use App\Models\photobook;
 use App\Models\status;
 use App\Models\custom;
+use App\Models\photographers;
+use App\Models\videographers;
+use App\Models\workhours;
 use Midtrans\Notification;
 use Midtrans\Snap;
 use Midtrans\Transaction;
@@ -176,7 +179,8 @@ class OrderController extends Controller
     //URL: /pricelist/order/checkout/store
     public function store(Request $request)
     {
-        $totalPrice = (int)$request->totalprice;
+        $discount = (int)$request->discount;
+
         $downPayment = null;
         $installment = null;
         $paymentCode = 'ALL';
@@ -192,6 +196,8 @@ class OrderController extends Controller
         $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
 
         $custom = $request->session()->get('custom');
+        $discountprice = $booking->totalprice * $discount / 100;
+        $totalPrice = $booking->totalprice - $discountprice;
 
         $booking->order_id = $order_id;
         $booking->payment_termination = $request->payment_termination;
@@ -281,6 +287,7 @@ class OrderController extends Controller
     public function custom(Request $request)
     {
         $product = $request->session()->get('booking');
+
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
         $additionals = additionals::all();
@@ -294,21 +301,26 @@ class OrderController extends Controller
         $additionalsjson = json_encode($additionals);
         $additionalPrice = 0;
 
+        $photographersprice =  photographers::query()->where('id', $request->input('photographers'))->value('price');
+        $videographersprice =  videographers::query()->where('id', $request->input('videographers'))->value('price');
+        $workhoursprice = workhours::query()->where('id', $request->input('workhours'))->value('price');
+        $printedphotoprice = printedphoto::query()->where('id', $request->input('printedphoto'))->value('price');
+        $ppqty = $request->input('ppqty');
+        $photobookprice = photobook::query()->where('id', $request->input('photobook'))->value('price');
+        $pbqty = $request->input('pbqty');
+
+
+
         foreach ($additionals as $additional) {
             $additionalData = additionals::query()->where('id', $additional)->value('price');
             $additionalPrice += $additionalData;
         }
+        $totalprice = $photographersprice + $videographersprice + $workhoursprice + $printedphotoprice * $ppqty + $photobookprice * $pbqty + $additionalPrice;
 
         $validatedDataCustom = $request->validate([
-            'photographer' => 'required',
-            'videographer' => 'required',
+            'photographers' => 'required',
+            'videographers' => 'required',
             'workhours' => 'required',
-            'drone' => 'nullable',
-            'one_minute_cinematic_video' => 'nullable',
-            'three_minute_cinematic_video' => 'nullable',
-            'flashdisk' => 'nullable',
-            'live_streaming' => 'nullable',
-            'full_documentation_video' => 'nullable',
 
         ]);
 
@@ -332,7 +344,7 @@ class OrderController extends Controller
 
         ]);
 
-        $totalprice = $request->input('totalprice');
+
 
         if (empty($request->session()->get('booking'))) {
             $booking = new Booking();
@@ -347,6 +359,7 @@ class OrderController extends Controller
             $booking->totalprice = $totalprice;
             $request->session()->put('booking', $booking);
         }
+
 
         return redirect('pricelist/order/details');
     }
