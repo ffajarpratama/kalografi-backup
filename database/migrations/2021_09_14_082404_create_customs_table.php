@@ -16,9 +16,10 @@ class CreateCustomsTable extends Migration
         Schema::create('customs', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('photographer')->nullable();
-            $table->integer('videographer')->nullable();
-            $table->string('workhours')->nullable();
+            $table->foreignId('photographer_id')->nullable()->constrained('photographers')->onDelete('CASCADE');
+            $table->foreignId('videographer_id')->nullable()->constrained('videographers')->onDelete('CASCADE');
+            $table->foreignId('workhour_id')->nullable()->constrained('workhours')->onDelete('CASCADE');
+
             $table->integer('price')->nullable();
 
             $table->timestamps();

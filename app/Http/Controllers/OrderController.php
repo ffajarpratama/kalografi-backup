@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Services\MidtransService;
 use App\Models\additionals;
 use App\Models\galeri;
+use App\Models\photographers;
+use App\Models\videographers;
+use App\Models\workhours;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Paket;
@@ -13,9 +16,7 @@ use App\Models\printedphoto;
 use App\Models\photobook;
 use App\Models\status;
 use App\Models\custom;
-use Midtrans\Notification;
 use Midtrans\Snap;
-use Midtrans\Transaction;
 
 class OrderController extends Controller
 {
@@ -92,7 +93,6 @@ class OrderController extends Controller
                 'totalprice' => $totalprice
             ]);
             $request->session()->put('booking', $booking);
-
         } else {
             $booking = $request->session()->get('booking');
             $booking->additionals = $additionalsjson;
@@ -125,6 +125,7 @@ class OrderController extends Controller
             $package = Paket::query()->where('id', $booking->paket_id)->first();
             $pp = printedphoto::query()->where('id', $booking->printedphoto_id)->first();
             $pb = photobook::query()->where('id', $booking->photobook_id)->first();
+
         } else {
             return redirect('/');
         }
@@ -188,13 +189,13 @@ class OrderController extends Controller
     //URL: /pricelist/order/checkout/store
     public function store(Request $request)
     {
-        $totalPrice = (int)$request->totalprice;
+        $discount = (int)$request->discount;
+
         $downPayment = null;
         $installment = null;
         $paymentCode = 'ALL';
 
         if ($request->payment_termination == 2) {
-            $totalPrice = (int)$request->totalprice;
             $downPayment = (int)$request->totalprice / 2;
             $installment = null;
             $paymentCode = 'DP';
@@ -204,6 +205,9 @@ class OrderController extends Controller
         $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
 
         $custom = $request->session()->get('custom');
+
+        $discountprice = $booking->totalprice * $discount / 100;
+        $totalPrice = $booking->totalprice - $discountprice;
 
         $booking->order_id = $order_id;
         $booking->payment_termination = $request->payment_termination;
@@ -255,7 +259,6 @@ class OrderController extends Controller
         $additionalServices = additionals::query()
             ->whereIn('id', json_decode($booking->additionals))
             ->get();
-
 
         if ($booking->paket_id) {
             $packageId = $booking->pakets->id;
@@ -397,32 +400,60 @@ class OrderController extends Controller
     //CREATE BOOKING FOR CUSTOM PACKAGE
     public function postcustom(Request $request)
     {
-        $additionals = $request->input('additionals');
-        $additionalsjson = json_encode($additionals);
+        $additionals = $request->additionals;
+        $additionalJson = json_encode($additionals);
+        $additionalPrice = 0;
+
+        $photographerPrice =  photographers::query()
+            ->where('id', $request->photographer_id)
+            ->value('price');
+
+        $videographerPrice =  videographers::query()
+            ->where('id', $request->videographer_id)
+            ->value('price');
+
+        $workhourPrice = workhours::query()
+            ->where('id', $request->workhour_id)
+            ->value('price');
+
+        $printedPhotoPrice = printedphoto::query()
+            ->where('id', $request->printedphoto_id)
+            ->value('price');
+
+        $photobookPrice = photobook::query()
+            ->where('id', $request->photobook_id)
+            ->value('price');
+
+        $printedPhotoQty = $request->ppqty;
+        $photobookQty = $request->pbqty;
+
+        foreach ($additionals as $additional) {
+            $additionalData = additionals::query()
+                ->where('id', $additional)
+                ->value('price');
+            $additionalPrice += $additionalData;
+        }
+
+        $printedPhotoTotal = $printedPhotoPrice * $printedPhotoQty;
+        $photobookTotal = $photobookPrice * $photobookQty;
+        $packagePrice = $photographerPrice + $videographerPrice + $workhourPrice;
+        $totalPrice = $packagePrice + $printedPhotoTotal + $photobookTotal + $additionalPrice;
 
         $validatedDataCustom = $request->validate([
-            'photographer' => 'required',
-            'videographer' => 'required',
-            'workhours' => 'required',
-            'drone' => 'nullable',
-            'one_minute_cinematic_video' => 'nullable',
-            'three_minute_cinematic_video' => 'nullable',
-            'flashdisk' => 'nullable',
-            'live_streaming' => 'nullable',
-            'full_documentation_video' => 'nullable'
+            'photographer_id' => 'required',
+            'videographer_id' => 'required',
+            'workhour_id' => 'required',
         ]);
-
-        $totalprice = $request->input('totalprice');
 
         if (empty($request->session()->get('custom'))) {
             $custom = new custom();
+            $custom->price = $packagePrice;
             $custom->fill($validatedDataCustom);
-            $custom->price = $request->packagePrice;
             $request->session()->put('custom', $custom);
         } else {
             $custom = $request->session()->get('custom');
+            $custom->price = $packagePrice;
             $custom->fill($validatedDataCustom);
-            $custom->price = $request->packagePrice;
             $request->session()->put('custom', $custom);
         }
 
@@ -438,14 +469,14 @@ class OrderController extends Controller
         if (empty($request->session()->get('booking'))) {
             $booking = new Booking();
             $booking->fill($validatedData);
-            $booking->additionals = $additionalsjson;
-            $booking->totalprice = $totalprice;
+            $booking->additionals = $additionalJson;
+            $booking->totalprice = $totalPrice;
             $request->session()->put('booking', $booking);
         } else {
             $booking = $request->session()->get('booking');
             $booking->fill($validatedData);
-            $booking->additionals = $additionalsjson;
-            $booking->totalprice = $totalprice;
+            $booking->additionals = $additionalJson;
+            $booking->totalprice = $totalPrice;
             $request->session()->put('booking', $booking);
         }
 

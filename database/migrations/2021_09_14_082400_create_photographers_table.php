@@ -14,9 +14,12 @@ class CreatePhotographersTable extends Migration
     public function up()
     {
         Schema::create('photographers', function (Blueprint $table) {
-            $table->integer('id', true);
+            $table->id();
+
             $table->string('amount');
             $table->integer('price');
+
+            $table->timestamps();
         });
     }
 

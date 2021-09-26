@@ -20,21 +20,20 @@
 
                                     <input type="hidden" id="idpaket" name="paket_id" value="0">
                                     <input type="hidden" id="grand_total" name="totalprice" value="0">
-                                    <input type="hidden" id="packagePrice" name="packagePrice" value="0">
 
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary ">Book Date</label>
+                                            <label class="mb-1 text-secondary" for="bookdate">Book Date</label>
                                             <input type="date" class="form-control text-secondary " name="bookdate"
-                                                id="date_pick" style="height: 70%" required>
+                                                id="bookdate" style="height: 70%" required>
                                         </div>
                                     </div>
 
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary ">Photographer</label>
-                                            <select class="form-control text-secondary small" name="photographer"
-                                                id="photographer-price" style="height: 70%">
+                                            <label class="mb-1 text-secondary" for="photographer_id">Photographer</label>
+                                            <select class="form-control text-secondary small" name="photographer_id"
+                                                id="photographer_id" style="height: 70%">
                                                 <option value="1" data-bs-harga-photo="500000">
                                                     1 Photographer
                                                 </option>
@@ -50,9 +49,9 @@
 
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary ">Videographer</label>
-                                            <select class="form-control text-secondary small" name="videographer"
-                                                id="printed_photo" style="height: 70%">
+                                            <label class="mb-1 text-secondary" for="videographer_id">Videographer</label>
+                                            <select class="form-control text-secondary small" name="videographer_id"
+                                                id="videographer_id" style="height: 70%">
                                                 <option value="1" data-bs-harga-video="1500000">
                                                     1 Videographer
                                                 </option>
@@ -65,12 +64,12 @@
 
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary ">Work Hours</label>
-                                            <select class="form-control text-secondary small" name="workhours"
-                                                id="workhours" style="height: 70%">
-                                                <option value="6" data-bs-workhoursprice="600000">6 Hours</option>
-                                                <option value="8" data-bs-workhoursprice="800000">8 Hours</option>
-                                                <option value="12" data-bs-workhoursprice="1200000">12 Hours
+                                            <label class="mb-1 text-secondary" for="workhour_id">Work Hours</label>
+                                            <select class="form-control text-secondary small" name="workhour_id"
+                                                id="workhour_id" style="height: 70%">
+                                                <option value="1" data-bs-workhoursprice="600000">6 Hours</option>
+                                                <option value="2" data-bs-workhoursprice="800000">8 Hours</option>
+                                                <option value="3" data-bs-workhoursprice="1200000">12 Hours
                                                 </option>
                                             </select>
                                         </div>
@@ -80,13 +79,12 @@
                                 <div class="col-md-5" style="margin: 40px">
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary" for="printed_photo">Printed Photo</label>
+                                            <label class="mb-1 text-secondary" for="printedphoto_id">Printed Photo</label>
                                             <select class="form-control text-secondary small" name="printedphoto_id"
-                                                id="printed_photo" style="height: 70%">
-                                                @foreach ($printedphoto as $printedphoto)
-                                                    <option value="{{ $printedphoto->id }}"
-                                                        data-bs-harga-pp="{{ $printedphoto->price }}">
-                                                        {{ $printedphoto->printedphoto }}
+                                                    id="printedphoto_id" style="height: 70%">
+                                                @foreach ($printedphoto as $item)
+                                                    <option value="{{ $item->id }}" data-bs-harga-pp="{{ $item->price }}">
+                                                        {{ $item->printedphoto }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -101,20 +99,19 @@
 
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <label class="mb-1 text-secondary" for="photobook-select">Photobook</label>
+                                            <label class="mb-1 text-secondary" for="photobook_id">Photobook</label>
                                             <select class="form-control text-secondary small" name="photobook_id"
-                                                id="photobook-select" style="height: 70%">
-                                                @foreach ($photobook as $photobook)
-                                                    <option value="{{ $photobook->id }}"
-                                                        data-bs-harga-pb="{{ $photobook->price }}">
-                                                        {{ $photobook->photobook }}
+                                                id="photobook_id" style="height: 70%">
+                                                @foreach ($photobook as $item)
+                                                    <option value="{{ $item->id }}" data-bs-harga-pb="{{ $item->price }}">
+                                                        {{ $item->photobook }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         <div class="col-md-2 text-center">
-                                            <label for="photobook_qty" class="mb-1 text-secondary small">Qty</label>
+                                            <label for="photobook_quantity" class="mb-1 text-secondary small">Qty</label>
                                             <input type="text" class="form-control" name="pbqty" id="photobook_quantity"
                                                 value="" required style="height: 70%">
                                         </div>
@@ -127,12 +124,11 @@
                                     </div>
 
                                     <div class="row text-secondary">
-                                        @foreach ($additionals as $additionals)
+                                        @foreach ($additionals as $additional)
                                             <div class="col-md-6">
-                                                <label class="container-checkbox">{{ $additionals->name }}
-                                                    <input type="checkbox" id="additionals" name="additionals[]"
-                                                        value="{{ $additionals->id }}"
-                                                        data-price="{{ $additionals->price }}">
+                                                <label class="container-checkbox">{{ $additional->name }}
+                                                    <input type="checkbox" id="additionals" name="additionals[]" value="{{ $additional->id }}"
+                                                           data-price="{{ $additional->price }}">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
@@ -221,17 +217,17 @@
         }
 
         function calculate() {
-            const photographerSelectedId = document.forms['total_form'].elements['photographer'].options[document.forms[
-                'total_form'].elements['photographer'].selectedIndex].getAttribute('data-bs-harga-photo');
-            const videographerSelectedId = document.forms['total_form'].elements['videographer'].options[document.forms[
-                'total_form'].elements['videographer'].selectedIndex].getAttribute('data-bs-harga-video');
+            const photographerSelectedId = document.forms['total_form'].elements['photographer_id'].options[document.forms[
+                'total_form'].elements['photographer_id'].selectedIndex].getAttribute('data-bs-harga-photo');
+            const videographerSelectedId = document.forms['total_form'].elements['videographer_id'].options[document.forms[
+                'total_form'].elements['videographer_id'].selectedIndex].getAttribute('data-bs-harga-video');
+            const workHoursSelectedId = document.forms['total_form'].elements['workhour_id'].options[document.forms[
+                'total_form'].elements['workhour_id'].selectedIndex].getAttribute('data-bs-workhoursprice');
             const printedPhotoSelectedId = document.forms['total_form'].elements['printedphoto_id'].options[document.forms[
                 'total_form'].elements['printedphoto_id'].selectedIndex].getAttribute('data-bs-harga-pp');
             const printedPhotoQty = document.getElementById("print_quantity").value;
             const photoBookSelectedId = document.forms['total_form'].elements['photobook_id'].options[document.forms[
                 'total_form'].elements['photobook_id'].selectedIndex].getAttribute('data-bs-harga-pb');
-            const workHoursSelectedId = document.forms['total_form'].elements['workhours'].options[document.forms[
-                'total_form'].elements['workhours'].selectedIndex].getAttribute('data-bs-workhoursprice');
             const photoBookQty = document.getElementById("photobook_quantity").value;
 
             const photographerPrice = parseInt(photographerSelectedId);
@@ -248,11 +244,6 @@
 
             document.getElementById('total_price_modal').innerHTML = "Rp. " + totalPriceInRupiah;
             document.getElementById('grand_total').value = total_price;
-            document.getElementById('packagePrice').value = packagePrice;
-            console.log(packagePrice);
-            console.log(photographerPrice, videographerPrice, workHoursPrice);
-            console.log(total_price);
-            console.log(packagePrice, printedPhotoTotal, photoBookTotal, additionalPrice);
         }
     </script>
 

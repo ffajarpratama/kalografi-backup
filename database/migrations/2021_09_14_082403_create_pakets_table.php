@@ -17,13 +17,13 @@ class CreatePaketsTable extends Migration
             $table->id();
 
             $table->foreignId('idgaleri')->nullable()->constrained('galeris')->onDelete('CASCADE');
+            $table->foreignId('photographer_id')->nullable()->constrained('photographers')->onDelete('CASCADE');
+            $table->foreignId('videographer_id')->nullable()->constrained('videographers')->onDelete('CASCADE');
+            $table->foreignId('workhour_id')->nullable()->constrained('workhours')->onDelete('CASCADE');
 
             $table->string('namapaket')->nullable();
             $table->string('kategori')->nullable();
-            $table->integer('workhours')->nullable();
             $table->string('day')->nullable();
-            $table->integer('photographers')->nullable();
-            $table->integer('videographers')->nullable();
             $table->tinyInteger('flashdisk')->default(1);
             $table->string('edited')->nullable();
             $table->integer('price')->nullable();
