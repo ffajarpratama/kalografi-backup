@@ -34,15 +34,11 @@
                                             <label class="mb-1 text-secondary" for="photographer_id">Photographer</label>
                                             <select class="form-control text-secondary small" name="photographer_id"
                                                 id="photographer_id" style="height: 70%">
-                                                <option value="1" data-bs-harga-photo="500000">
-                                                    1 Photographer
-                                                </option>
-                                                <option value="2" data-bs-harga-photo="1000000">
-                                                    2 Photographer
-                                                </option>
-                                                <option value="3" data-bs-harga-photo="1500000">
-                                                    3 Photographer
-                                                </option>
+                                                @foreach($photographers as $item)
+                                                    <option value="{{ $item->id }}" data-bs-harga-photo="{{ $item->price }}">
+                                                        {{ $item->amount . ' Photographers' }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -52,12 +48,11 @@
                                             <label class="mb-1 text-secondary" for="videographer_id">Videographer</label>
                                             <select class="form-control text-secondary small" name="videographer_id"
                                                 id="videographer_id" style="height: 70%">
-                                                <option value="1" data-bs-harga-video="1500000">
-                                                    1 Videographer
-                                                </option>
-                                                <option value="2 " data-bs-harga-video="2200000">
-                                                    2 Videographer
-                                                </option>
+                                                @foreach($videographers as $item)
+                                                    <option value="{{ $item->id }}" data-bs-harga-video="{{ $item->price }}">
+                                                        {{ $item->amount . ' Videographers' }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -67,10 +62,11 @@
                                             <label class="mb-1 text-secondary" for="workhour_id">Work Hours</label>
                                             <select class="form-control text-secondary small" name="workhour_id"
                                                 id="workhour_id" style="height: 70%">
-                                                <option value="1" data-bs-workhoursprice="600000">6 Hours</option>
-                                                <option value="2" data-bs-workhoursprice="800000">8 Hours</option>
-                                                <option value="3" data-bs-workhoursprice="1200000">12 Hours
-                                                </option>
+                                                @foreach($workhours as $item)
+                                                    <option value="{{ $item->id }}" data-bs-workhoursprice="{{ $item->price }}">
+                                                        {{ $item->amount . ' Hours' }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

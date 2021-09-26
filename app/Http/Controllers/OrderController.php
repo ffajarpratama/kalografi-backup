@@ -391,10 +391,21 @@ class OrderController extends Controller
     public function custom(Request $request)
     {
         $product = $request->session()->get('booking');
+        $photographers = photographers::all();
+        $videographers = videographers::all();
+        $workhours = workhours::all();
         $printedphoto = printedphoto::all();
         $photobook = photobook::all();
         $additionals = additionals::all();
-        return view('pages.custom.customisation', compact('printedphoto', 'photobook', 'product', 'additionals'));
+
+        return view('pages.custom.customisation',
+            compact('printedphoto',
+                'photobook', 
+                'product',
+                'additionals',
+                'photographers',
+                'videographers',
+                'workhours'));
     }
 
     //CREATE BOOKING FOR CUSTOM PACKAGE
