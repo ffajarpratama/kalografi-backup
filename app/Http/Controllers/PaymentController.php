@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\MidtransService;
+use App\Models\additionals;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Midtrans\Notification;
@@ -19,9 +20,84 @@ class PaymentController extends Controller
         $this->midtransService = $midtransService;
     }
 
-    public function _generatePaymentToken($booking, $grossAmount)
+    public function createInstallmentTransaction($booking, $grossAmount)
     {
         $this->midtransService->initPaymentGateway();
+
+        $additionalServices = additionals::query()
+            ->whereIn('id', json_decode($booking->additionals))
+            ->get();
+
+        if ($booking->paket_id) {
+            $packageId = $booking->pakets->id;
+            $packageName = $booking->pakets->namapaket . ' ' . $booking->pakets->kategori;
+            $packagePrice = $booking->pakets->price;
+            $packageCategory = $booking->pakets->kategori;
+        } elseif ($booking->custom_id) {
+            $packageId = 'CUSTOM';
+            $packageName = 'Custom Package';
+            $packagePrice = $booking->custom->price;
+            $packageCategory = 'Custom Package';
+        }
+
+        $packageDetails = [
+            'id' => $packageId,
+            'name' => $packageName,
+            'price' => $packagePrice,
+            'quantity' => 1,
+            'category' => $packageCategory
+        ];
+
+        $photobookDetails = [
+            'id' => $booking->photobooks->id,
+            'name' => $booking->photobooks->photobook,
+            'price' => $booking->photobooks->price,
+            'quantity' => $booking->pbqty,
+            'category' => 'Photo Book'
+        ];
+
+        $printedphotoDetails = [
+            'id' => $booking->printedphotos->id,
+            'name' => $booking->printedphotos->printedphoto,
+            'price' => $booking->printedphotos->price,
+            'quantity' => $booking->ppqty,
+            'category' => 'Printed Photo'
+        ];
+
+        $initialPrice = $booking->totalprice * (100 / (100 - $booking->discount->jumlah));
+        $discountedPrice = ($initialPrice * $booking->discount->jumlah) / 100;
+
+        $discountDetails = [
+            'id' => $booking->discount_id,
+            'name' => strtoupper($booking->discount->nama) . ' (Discount)',
+            'price' => -$discountedPrice,
+            'quantity' => 1,
+            'category' => 'Discount'
+        ];
+
+        $installmentDetails = [
+            'id' => 'INS',
+            'name' => 'Installment Amount',
+            'price' => -$booking->installment,
+            'quantity' => 1,
+            'category' => 'Installment Payment'
+        ];
+
+        $item_details = array($packageDetails, $printedphotoDetails, $photobookDetails, $discountDetails, $installmentDetails);
+
+        if ($booking->additionals) {
+            foreach ($additionalServices as $item) {
+                $additionalDetails[] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => 1,
+                    'category' => 'Additional Service'
+                ];
+            }
+
+            $item_details = array_merge(array($packageDetails), array($printedphotoDetails), array($photobookDetails), $additionalDetails, array($discountDetails), array($installmentDetails));
+        }
 
         $customerDetails = [
             'first_name' => $booking->fullname,
@@ -35,6 +111,7 @@ class PaymentController extends Controller
                 'order_id' => $booking->order_id,
                 'gross_amount' => $grossAmount
             ],
+            'item_details' => $item_details,
             'customer_details' => $customerDetails,
             'expiry' => [
                 'start_time' => date('Y-m-d H:i:s T', strtotime($booking->created_at)),
@@ -141,7 +218,7 @@ class PaymentController extends Controller
             $booking->update();
 
             $this->midtransService->initPaymentGateway();
-            $this->_generatePaymentToken($booking, $grossAmount);
+            $this->createInstallmentTransaction($booking, $grossAmount);
 
         } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
             $alertMessage = 'Please Complete Installment Payment!';
@@ -211,7 +288,7 @@ class PaymentController extends Controller
             $booking->order_id = $order_id;
             $booking->update();
 
-            $this->_generatePaymentToken($booking, $grossAmount);
+            $this->createInstallmentTransaction($booking, $grossAmount);
         } else {
             if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
                 $alertMessage = 'Please Complete Payment!';
@@ -230,7 +307,7 @@ class PaymentController extends Controller
                 $booking->order_id = $order_id;
                 $booking->update();
 
-                $this->_generatePaymentToken($booking, $grossAmount);
+                $this->createInstallmentTransaction($booking, $grossAmount);
 
             } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
                 $alertMessage = 'Please Complete Installment Payment!';

@@ -225,8 +225,8 @@
                             </div>
                         </div>
                     </div>
+                    <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
                 @endif
-                <hr style="border-top: 2px dashed black; background-color: #FFFFFF;">
             @endif
 
             <div class="row mb-4 mt-4">

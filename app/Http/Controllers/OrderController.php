@@ -252,9 +252,10 @@ class OrderController extends Controller
 
         $grossAmount = $booking->totalprice;
 
-        if ($booking->payment_termination == 2) {
-            $grossAmount = $booking->downPayment;
-        }
+        $additionalServices = additionals::query()
+            ->whereIn('id', json_decode($booking->additionals))
+            ->get();
+
 
         if ($booking->paket_id) {
             $packageId = $booking->pakets->id;
@@ -298,29 +299,52 @@ class OrderController extends Controller
         $discountDetails = [
             'id' => $booking->discount_id,
             'name' => strtoupper($booking->discount->nama) . ' (Discount)',
-            'price' => - $discountedPrice,
+            'price' => -$discountedPrice,
             'quantity' => 1,
             'category' => 'Discount'
         ];
 
         $item_details = array($packageDetails, $printedphotoDetails, $photobookDetails, $discountDetails);
 
-        if ($booking->additionals) {
-            $additionalServices = additionals::query()
-                ->whereIn('id', json_decode($booking->additionals))
-                ->get();
+        if ($booking->payment_termination == 1) {
+            if ($booking->additionals) {
+                foreach ($additionalServices as $item) {
+                    $additionalDetails[] = [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'price' => $item->price,
+                        'quantity' => 1,
+                        'category' => 'Additional Service'
+                    ];
+                }
 
-            foreach ($additionalServices as $item) {
-                $additionalDetails[] = [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'price' => $item->price,
-                    'quantity' => 1,
-                    'category' => 'Additional Service'
-                ];
+                $item_details = array_merge(array($packageDetails), array($printedphotoDetails), array($photobookDetails), $additionalDetails, array($discountDetails));
             }
+        } else if ($booking->payment_termination == 2) {
+            $grossAmount = $booking->downPayment;
+            $downPaymentDetails = [
+                'id' => 'DP',
+                'name' => 'Down Payment Amount',
+                'price' => -$booking->downPayment,
+                'quantity' => 1,
+                'category' => 'Down Payment'
+            ];
 
-            $item_details = array_merge(array($packageDetails), array($printedphotoDetails), array($photobookDetails), $additionalDetails, array($discountDetails));
+            $item_details = array($packageDetails, $printedphotoDetails, $photobookDetails, $discountDetails, $downPaymentDetails);
+
+            if ($booking->additionals) {
+                foreach ($additionalServices as $item) {
+                    $additionalDetails[] = [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'price' => $item->price,
+                        'quantity' => 1,
+                        'category' => 'Additional Service'
+                    ];
+                }
+
+                $item_details = array_merge(array($packageDetails), array($printedphotoDetails), array($photobookDetails), $additionalDetails, array($discountDetails), array($downPaymentDetails));
+            }
         }
 
         $customerDetails = [
