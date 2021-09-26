@@ -21,19 +21,19 @@ class PhotographerSeeder extends Seeder
                 'amount' => '1',
                 'price' => 500000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ],
             [
                 'amount' => '2',
                 'price' => 1000000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ],
             [
                 'amount' => '3',
                 'price' => 1500000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ]
         ]);
     }

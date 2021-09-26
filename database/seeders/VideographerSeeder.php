@@ -21,19 +21,19 @@ class VideographerSeeder extends Seeder
                 'amount' => '1',
                 'price' => 1500000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ],
             [
                 'amount' => '2',
                 'price' => 2200000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ],
             [
                 'amount' => '3',
                 'price' => 2900000,
                 'created_at' => date($today),
-                'updated' => date($today)
+                'updated_at' => date($today)
             ]
         ]);
     }
