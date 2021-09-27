@@ -141,7 +141,7 @@
         getSelectValue();
 
         function totalharga() {
-
+            getPaymentType()
             selectedId = document.forms['form_discount'].elements['discount'].options[document.forms[
                 'form_discount'].elements['discount'].selectedIndex].value;
 

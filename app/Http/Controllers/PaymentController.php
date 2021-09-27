@@ -201,15 +201,19 @@ class PaymentController extends Controller
             ->firstOrFail();
 
         if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
+            $alertType = 'danger';
             $alertMessage = 'Please Complete Payment!';
 
         } else if ($booking->paymentStatus === 'FULLY_PAID') {
+            $alertType = 'message';
             $alertMessage = 'Payment Complete!';
 
         } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+            $alertType = 'danger';
             $alertMessage = 'Please Complete Down Payment!';
 
         } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
+            $alertType = 'message';
             $alertMessage = 'Down Payment Paid!';
             $paymentCode = 'INS';
             $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
@@ -221,13 +225,15 @@ class PaymentController extends Controller
             $this->createInstallmentTransaction($booking, $grossAmount);
 
         } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
+            $alertType = 'danger';
             $alertMessage = 'Please Complete Installment Payment!';
 
         } else if ($booking->paymentStatus === 'INSTALLMENT_PAID') {
+            $alertType = 'message';
             $alertMessage = 'Installment Paid! Payment Complete!';
         }
 
-        return redirect('/search?order_id=' . $booking->id)->with('message', $alertMessage);
+        return redirect('/search?order_id=' . $booking->id)->with($alertType, $alertMessage);
     }
 
     public function snapUnfinished(Request $request)
@@ -291,15 +297,19 @@ class PaymentController extends Controller
             $this->createInstallmentTransaction($booking, $grossAmount);
         } else {
             if ($booking->paymentStatus === 'FULL_PAYMENT_PENDING') {
+                $alertType = 'danger';
                 $alertMessage = 'Please Complete Payment!';
 
             } else if ($booking->paymentStatus === 'FULLY_PAID') {
+                $alertType = 'message';
                 $alertMessage = 'Payment Complete!';
 
             } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PENDING') {
+                $alertType = 'danger';
                 $alertMessage = 'Please Complete Down Payment!';
 
             } else if ($booking->paymentStatus === 'DOWN_PAYMENT_PAID') {
+                $alertType = 'message';
                 $alertMessage = 'Down Payment Paid!';
                 $paymentCode = 'INS';
                 $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
@@ -310,14 +320,16 @@ class PaymentController extends Controller
                 $this->createInstallmentTransaction($booking, $grossAmount);
 
             } else if ($booking->paymentStatus === 'INSTALLMENT_PENDING') {
+                $alertType = 'danger';
                 $alertMessage = 'Please Complete Installment Payment!';
 
             } else if ($booking->paymentStatus === 'INSTALLMENT_PAID') {
+                $alertType = 'message';
                 $alertMessage = 'Installment Paid! Payment Complete!';
             }
         }
 
-        return redirect('/search?order_id=' . $booking->id)->with('message', $alertMessage);
+        return redirect('/search?order_id=' . $booking->id)->with($alertType, $alertMessage);
     }
 
     public function unfinished(Request $request)

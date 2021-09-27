@@ -2,14 +2,22 @@
 @section('content')
     <div class="container-fluid py-5" style="background-color: #FAFBFA">
         <div class="container">
-            @if (session()->has('message'))
-                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                    <strong>{{ session('message') }}</strong>
-                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             <div class="row justify-content-center">
+
+                <div class="col-md-10">
+                    @if (session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                            <strong>{{ session('message') }}</strong>
+                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @elseif (session()->has('danger'))
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>{{ session('danger') }}</strong>
+                            <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="col-md-5">
                     <div class="row mb-3">
                         <h3 class="fs-1 fw-bold text-secondary">Your Post-Production Progress</h3>

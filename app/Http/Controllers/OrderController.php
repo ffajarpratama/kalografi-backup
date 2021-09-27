@@ -189,25 +189,28 @@ class OrderController extends Controller
     //URL: /pricelist/order/checkout/store
     public function store(Request $request)
     {
-        $discount = (int)$request->discount;
+        $discount = discount::query()
+            ->where('id', $request->discount)
+            ->value('jumlah');
+        $discountAmountToInt = (int)$discount;
+
+        $booking = $request->session()->get('booking');
+        $custom = $request->session()->get('custom');
+
+        $discountPrice = $booking->totalprice * $discountAmountToInt / 100;
+        $totalPrice = $booking->totalprice - $discountPrice;
 
         $downPayment = null;
         $installment = null;
         $paymentCode = 'ALL';
 
         if ($request->payment_termination == 2) {
-            $downPayment = (int)$request->totalprice / 2;
+            $downPayment = $totalPrice / 2;
             $installment = null;
             $paymentCode = 'DP';
         }
 
-        $booking = $request->session()->get('booking');
         $order_id = $paymentCode . '/' . '000' . random_int(1000, 9999);
-
-        $custom = $request->session()->get('custom');
-
-        $discountprice = $booking->totalprice * $discount / 100;
-        $totalPrice = $booking->totalprice - $discountprice;
 
         $booking->order_id = $order_id;
         $booking->payment_termination = $request->payment_termination;
@@ -400,7 +403,7 @@ class OrderController extends Controller
 
         return view('pages.custom.customisation',
             compact('printedphoto',
-                'photobook', 
+                'photobook',
                 'product',
                 'additionals',
                 'photographers',
@@ -415,11 +418,11 @@ class OrderController extends Controller
         $additionalJson = json_encode($additionals);
         $additionalPrice = 0;
 
-        $photographerPrice =  photographers::query()
+        $photographerPrice = photographers::query()
             ->where('id', $request->photographer_id)
             ->value('price');
 
-        $videographerPrice =  videographers::query()
+        $videographerPrice = videographers::query()
             ->where('id', $request->videographer_id)
             ->value('price');
 
